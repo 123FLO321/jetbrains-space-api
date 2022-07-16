@@ -1,2 +1,31 @@
 # jetbrains-space-api
-axios client for the JetBrains Space api
+
+Axios client for the [JetBrains Space API](https://www.jetbrains.com/help/space/api.html).
+
+[![npm latest version](https://img.shields.io/npm/v/jetbrains-space-api/latest.svg)](https://www.npmjs.com/package/jetbrains-space-api)
+[![npm next version](https://img.shields.io/npm/v/jetbrains-space-api/next.svg)](https://www.npmjs.com/package/jetbrains-space-api)
+[![npm beta version](https://img.shields.io/npm/v/jetbrains-space-api/beta.svg)](https://www.npmjs.com/package/jetbrains-space-api)
+
+## Versions
+| Package Version | Space Version       |
+|-----------------|---------------------|
+
+## Install
+
+```bash
+$ npm install --save-dev jetbrains-space-api
+```
+
+## Usage
+
+Basic example for getting all projects.
+
+```typescript
+const client = new SpaceApi(
+  new Configuration({
+    basePath: process.env.SPACE_API_URL,
+    accessToken: process.env.SPACE_API_TOKEN
+  })
+);
+const projects = await client.projectsGet();
+```

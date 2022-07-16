@@ -1,0 +1,71 @@
+{
+  "name": "jetbrains-space-api",
+  "version": "0.0.0",
+  "description": "axios client for the JetBrains Space api",
+  "author": "Florian Kostenzer (https://github.com/123FLO321)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/123FLO321/jetbrains-space-api"
+  },
+  "bugs": {
+    "url": "https://github.com/123FLO321/jetbrains-space-api/issues"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "generate-client": "ts-node scripts/generate-client.ts",
+    "update-readme-versions": "ts-node scripts/update-readme-versions.ts",
+    "lint": "eslint \"{src,test}/**/*{.js,.ts,.json}\"",
+    "lint:fix": "eslint \"{src,test}/**/*{.js,.ts,.json}\" --fix",
+    "test": "jest",
+    "prepublish": "tsc",
+    "postinstall": "husky install || true"
+  },
+  "keywords": [
+    "jetbrains",
+    "space",
+    "jetbrains-space",
+    "api",
+    "axios",
+    "jetbrains-space-api"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.27.2"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-angular": "^17.0.3",
+    "@openapitools/openapi-generator-cli": "^2.5.1",
+    "@semantic-release/exec": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^8.0.5",
+    "@semantic-release/npm": "^9.0.1",
+    "@trivago/prettier-plugin-sort-imports": "^3.2.0",
+    "@types/jest": "^28.1.5",
+    "@types/semantic-release": "^17.2.3",
+    "@typescript-eslint/eslint-plugin": "^5.30.5",
+    "@typescript-eslint/parser": "^5.30.5",
+    "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "husky": "^8.0.1",
+    "jest": "^28.1.3",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "semantic-release": "^19.0.3",
+    "ts-jest": "^28.0.6",
+    "ts-node": "^10.8.2",
+    "typescript": "^4.7.4"
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "eslint --fix"
+    ],
+    "**/*.ts": [
+      "eslint --fix"
+    ]
+  }
+}
