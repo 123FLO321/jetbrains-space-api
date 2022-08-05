@@ -9,6 +9,7 @@ Axios client for the [JetBrains Space API](https://www.jetbrains.com/help/space/
 ## Versions
 | Package Version | Space Version       |
 |-----------------|---------------------|
+| 1.2.0           | 2022.2.0-DEV.108093 |
 | 1.1.1           | 2022.2.0-DEV.105866 |
 | 1.1.0           | 2022.2.0-DEV.105866 |
 | 1.0.0           | 2022.2.0-DEV.104457 |
