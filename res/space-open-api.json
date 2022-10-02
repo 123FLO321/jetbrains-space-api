@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "Space",
-    "version": "2022.2.0-DEV.108093"
+    "version": "2022.2.0-DEV.113510"
   },
   "servers": [
     {
@@ -3711,6 +3711,10 @@
                   "doRetries": {
                     "default": true,
                     "type": "boolean"
+                  },
+                  "payloadFields": {
+                    "nullable": true,
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -3941,6 +3945,10 @@
                   },
                   "doRetries": {
                     "type": "boolean"
+                  },
+                  "payloadFields": {
+                    "nullable": true,
+                    "type": "string"
                   }
                 }
               }
@@ -5526,6 +5534,43 @@
             "$ref": "#/components/responses/default"
           }
         }
+      }
+    },
+    "/billing-admin/trial": {
+      "put": {
+        "summary": "Activate trial",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "trialTier": {
+                    "$ref": "#/components/schemas/Tier"
+                  }
+                },
+                "required": [
+                  "trialTier"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
+          }
+        },
+        "x-rights": [
+          {
+            "title": "Grant permissions to other members"
+          }
+        ]
       }
     },
     "/billing-admin/overdrafts": {
@@ -9831,7 +9876,7 @@
       "post": {
         "summary": "Import messages",
         "description": {
-          "text": "This API method is intended to be used only by applications."
+          "text": "This API method is intended to be used only by applications. The `createdAtUtc` and `editedAtUtc` parameters are Unix epoch timestamps in *milliseconds*."
         },
         "parameters": [],
         "requestBody": {
@@ -12763,6 +12808,15 @@
             }
           },
           {
+            "name": "version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "nullable": true,
+              "type": "string"
+            }
+          },
+          {
             "name": "$fields",
             "in": "query",
             "required": false,
@@ -15118,7 +15172,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "View project details"
+          }
+        ]
       }
     },
     "/projects/collaborator:{profile}": {
@@ -15200,7 +15259,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "View project details"
+          }
+        ]
       }
     },
     "/projects/member:{member}": {
@@ -15282,7 +15346,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "View project details"
+          }
+        ]
       }
     },
     "/projects/right-code:{rightCode}": {
@@ -15391,7 +15460,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "View project details"
+          }
+        ]
       }
     },
     "/projects/right-unique-code:{right}": {
@@ -15500,7 +15574,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "View project details"
+          }
+        ]
       }
     },
     "/projects/team:{team}": {
@@ -15582,7 +15661,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "View project details"
+          }
+        ]
       }
     },
     "/projects/{project}": {
@@ -15624,7 +15708,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "View project details"
+          }
+        ]
       },
       "patch": {
         "summary": "Update project",
@@ -15703,7 +15792,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "Manage project permission scheme"
+          }
+        ]
       },
       "delete": {
         "summary": "Delete project",
@@ -17292,7 +17386,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "List restricted projects"
+          }
+        ]
       }
     },
     "/projects/private-projects": {
@@ -17329,7 +17428,15 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "List restricted projects"
+          },
+          {
+            "title": "View project details"
+          }
+        ]
       }
     },
     "/projects/repositories/find": {
@@ -18011,7 +18118,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "View project details"
+          }
+        ]
       }
     },
     "/projects/vault": {
@@ -18285,7 +18397,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "View project details"
+          }
+        ]
       }
     },
     "/projects/{project}/access/admins/profiles": {
@@ -18329,7 +18446,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "Manage project permission scheme"
+          }
+        ]
       }
     },
     "/projects/{project}/access/admins/profiles/{profile}": {
@@ -18363,7 +18485,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "Manage project permission scheme"
+          }
+        ]
       }
     },
     "/projects/{project}/access/admins/teams": {
@@ -18407,7 +18534,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "Manage project permission scheme"
+          }
+        ]
       }
     },
     "/projects/{project}/access/admins/teams/{teamId}": {
@@ -18441,7 +18573,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "Manage project permission scheme"
+          }
+        ]
       }
     },
     "/projects/{project}/access/collaborators": {
@@ -18483,7 +18620,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "View project details"
+          }
+        ]
       }
     },
     "/projects/{project}/access/collaborators/profiles": {
@@ -18524,7 +18666,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "Manage project permission scheme"
+          }
+        ]
       },
       "get": {
         "summary": "Get all individual collaborators",
@@ -18564,7 +18711,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "View project details"
+          }
+        ]
       },
       "delete": {
         "summary": "Remove a collaborator",
@@ -18593,7 +18745,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "Manage project permission scheme"
+          }
+        ]
       }
     },
     "/projects/{project}/access/collaborators/teams": {
@@ -18634,7 +18791,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "Manage project permission scheme"
+          }
+        ]
       },
       "get": {
         "summary": "Get all collaborators' teams",
@@ -18674,7 +18836,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "View project details"
+          }
+        ]
       },
       "delete": {
         "summary": "Remove a collaborators' team",
@@ -18703,7 +18870,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "Manage project permission scheme"
+          }
+        ]
       }
     },
     "/projects/{project}/access/member-profiles": {
@@ -18852,7 +19024,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "Manage project permission scheme"
+          }
+        ]
       }
     },
     "/projects/{project}/access/members/profiles/{profile}": {
@@ -18886,7 +19063,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "Manage project permission scheme"
+          }
+        ]
       }
     },
     "/projects/{project}/access/members/teams": {
@@ -18930,7 +19112,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "Manage project permission scheme"
+          }
+        ]
       }
     },
     "/projects/{project}/access/members/teams/{teamId}": {
@@ -18964,7 +19151,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "Manage project permission scheme"
+          }
+        ]
       }
     },
     "/projects/{project}/access/viewers": {
@@ -19063,7 +19255,12 @@
           "default": {
             "$ref": "#/components/responses/default"
           }
-        }
+        },
+        "x-rights": [
+          {
+            "title": "View project details"
+          }
+        ]
       }
     },
     "/projects/{project}/automation/deployment-targets": {
@@ -19077,6 +19274,15 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "$fields",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "allowReserved": true
           }
         ],
         "requestBody": {
@@ -19114,7 +19320,14 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeployTargetRecord"
+                }
+              }
+            }
           },
           "default": {
             "$ref": "#/components/responses/default"
@@ -19214,7 +19427,7 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/DeployTargetDTO"
+                        "$ref": "#/components/schemas/DeployTargetRecord"
                       }
                     }
                   },
@@ -19304,7 +19517,7 @@
         ]
       }
     },
-    "/projects/{project}/automation/deployment-targets/{identifier}": {
+    "/projects/{project}/automation/deployment-targets/{target}": {
       "get": {
         "summary": "Get",
         "parameters": [
@@ -19317,7 +19530,7 @@
             }
           },
           {
-            "name": "identifier",
+            "name": "target",
             "in": "path",
             "required": true,
             "schema": {
@@ -19368,7 +19581,7 @@
             }
           },
           {
-            "name": "identifier",
+            "name": "target",
             "in": "path",
             "required": true,
             "schema": {
@@ -19383,19 +19596,22 @@
                 "type": "object",
                 "properties": {
                   "name": {
+                    "nullable": true,
                     "type": "string"
                   },
                   "description": {
+                    "nullable": true,
                     "type": "string"
                   },
                   "repositories": {
+                    "nullable": true,
                     "type": "array",
                     "items": {
                       "$ref": "#/components/schemas/DeployTargetRepositoryDTO"
                     }
                   },
                   "manualControl": {
-                    "default": true,
+                    "nullable": true,
                     "type": "boolean"
                   },
                   "hangTimeoutMinutes": {
@@ -19408,16 +19624,11 @@
                     "type": "integer",
                     "format": "int32"
                   }
-                },
-                "required": [
-                  "name",
-                  "description",
-                  "repositories"
-                ]
+                }
               }
             }
           },
-          "required": true
+          "required": false
         },
         "responses": {
           "200": {
@@ -19440,7 +19651,7 @@
             }
           },
           {
-            "name": "identifier",
+            "name": "target",
             "in": "path",
             "required": true,
             "schema": {
@@ -20546,6 +20757,10 @@
                     "items": {
                       "type": "string"
                     }
+                  },
+                  "files": {
+                    "nullable": true,
+                    "$ref": "#/components/schemas/FileSetInReview"
                   }
                 },
                 "required": [
@@ -21162,64 +21377,6 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/TD_MemberProfile"
-                  }
-                }
-              }
-            }
-          },
-          "default": {
-            "$ref": "#/components/responses/default"
-          }
-        },
-        "x-rights": [
-          {
-            "title": "View code reviews"
-          }
-        ]
-      }
-    },
-    "/projects/{project}/code-reviews/{reviewId}/unread-revisions": {
-      "get": {
-        "summary": "Get unread revisions",
-        "description": {
-          "text": ""
-        },
-        "parameters": [
-          {
-            "name": "project",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "reviewId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "$fields",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "allowReserved": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ReviewCommitIn"
                   }
                 }
               }
@@ -24799,7 +24956,7 @@
       "get": {
         "summary": "Get all types",
         "description": {
-          "text": "Creates a new package repository for a given project ID"
+          "text": "Returns a list of available repository types."
         },
         "parameters": [
           {
@@ -26185,7 +26342,7 @@
                     "type": "boolean"
                   },
                   "notifySubscribers": {
-                    "default": true,
+                    "default": false,
                     "type": "boolean"
                   }
                 },
@@ -27812,6 +27969,64 @@
         }
       }
     },
+    "/projects/{project}/repositories/{repository}/commit-branches": {
+      "get": {
+        "summary": "List the heads which contains given commit",
+        "parameters": [
+          {
+            "name": "project",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "repository",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "commit",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "$fields",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "allowReserved": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BranchInfo"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
+          }
+        }
+      }
+    },
     "/projects/{project}/repositories/{repository}/commits": {
       "get": {
         "summary": "List commits matching query",
@@ -27908,6 +28123,72 @@
         }
       }
     },
+    "/projects/{project}/repositories/{repository}/files": {
+      "get": {
+        "summary": "List files in directory",
+        "parameters": [
+          {
+            "name": "project",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "repository",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "commit",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "path",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "$fields",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "allowReserved": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GitFile"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
+          }
+        }
+      }
+    },
     "/projects/{project}/repositories/{repository}/url": {
       "get": {
         "summary": "Get repository git remote URL",
@@ -27945,6 +28226,91 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/RepositoryUrls"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
+          }
+        }
+      }
+    },
+    "/projects/{project}/repositories/{repository}/readonly": {
+      "post": {
+        "summary": "Set repository frozen state",
+        "parameters": [
+          {
+            "name": "project",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "repository",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "freeze": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "freeze"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "$ref": "#/components/responses/default"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get repository frozen state",
+        "parameters": [
+          {
+            "name": "project",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "repository",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
                 }
               }
             }
@@ -29325,47 +29691,6 @@
             "$ref": "#/components/responses/default"
           }
         }
-      }
-    },
-    "/rd/workspaces/reload-config": {
-      "post": {
-        "summary": "Reload Config",
-        "description": {
-          "text": "Restarts the given workspace while keeping local changes to update the configuration"
-        },
-        "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "workspace": {
-                    "$ref": "#/components/schemas/WorkspaceIdentifier"
-                  }
-                },
-                "required": [
-                  "workspace"
-                ]
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          },
-          "default": {
-            "$ref": "#/components/responses/default"
-          }
-        },
-        "x-rights": [
-          {
-            "title": "Manage dev environments of all project members",
-            "description": "Allows to manage the lifecycle of dev environments that the user doesn't own (users can always manage their own environments)"
-          }
-        ]
       }
     },
     "/reactions/{item}/{emoji}": {
@@ -40338,6 +40663,9 @@
             "$ref": "#/components/schemas/DocumentFolderMenuItemUiExtensionApi"
           },
           {
+            "$ref": "#/components/schemas/CodeReviewMenuItemUiExtensionApi"
+          },
+          {
             "$ref": "#/components/schemas/MeetingMenuItemUiExtensionApi"
           },
           {
@@ -40350,10 +40678,13 @@
             "$ref": "#/components/schemas/DocumentMenuItemUiExtensionApi"
           },
           {
+            "$ref": "#/components/schemas/ApplicationHomepageUiExtensionApi"
+          },
+          {
             "$ref": "#/components/schemas/ChatBotUiExtensionApi"
           },
           {
-            "$ref": "#/components/schemas/ApplicationHomepageUiExtensionApi"
+            "$ref": "#/components/schemas/TopLevelPageUiExtensionApi"
           }
         ],
         "discriminator": {
@@ -40371,25 +40702,31 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/ChatBotUiExtensionIn"
+            "$ref": "#/components/schemas/TopLevelPageUiExtensionIn"
           },
           {
-            "$ref": "#/components/schemas/ApplicationHomepageUiExtensionIn"
+            "$ref": "#/components/schemas/ChatMessageMenuItemUiExtensionIn"
           },
           {
             "$ref": "#/components/schemas/MeetingMenuItemUiExtensionIn"
           },
           {
-            "$ref": "#/components/schemas/IssueMenuItemUiExtensionIn"
+            "$ref": "#/components/schemas/DocumentMenuItemUiExtensionIn"
+          },
+          {
+            "$ref": "#/components/schemas/CodeReviewMenuItemUiExtensionIn"
           },
           {
             "$ref": "#/components/schemas/DocumentFolderMenuItemUiExtensionIn"
           },
           {
-            "$ref": "#/components/schemas/DocumentMenuItemUiExtensionIn"
+            "$ref": "#/components/schemas/IssueMenuItemUiExtensionIn"
           },
           {
-            "$ref": "#/components/schemas/ChatMessageMenuItemUiExtensionIn"
+            "$ref": "#/components/schemas/ApplicationHomepageUiExtensionIn"
+          },
+          {
+            "$ref": "#/components/schemas/ChatBotUiExtensionIn"
           }
         ],
         "discriminator": {
@@ -40521,6 +40858,9 @@
         },
         "anyOf": [
           {
+            "$ref": "#/components/schemas/MarketplaceAppMetadata"
+          },
+          {
             "$ref": "#/components/schemas/AdHocConnectedAppMetadata"
           },
           {
@@ -40528,9 +40868,6 @@
           },
           {
             "$ref": "#/components/schemas/SubscriptionMetadata"
-          },
-          {
-            "$ref": "#/components/schemas/MarketplaceAppMetadata"
           }
         ],
         "discriminator": {
@@ -40548,7 +40885,16 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/WebhookRequestPayload"
+            "$ref": "#/components/schemas/MessageActionPayload"
+          },
+          {
+            "$ref": "#/components/schemas/ChangeClientSecretPayload"
+          },
+          {
+            "$ref": "#/components/schemas/NewUnfurlQueueItemsPayload"
+          },
+          {
+            "$ref": "#/components/schemas/ChangeServerUrlPayload"
           },
           {
             "$ref": "#/components/schemas/AppPublicationCheckPayload"
@@ -40557,31 +40903,22 @@
             "$ref": "#/components/schemas/InitPayload"
           },
           {
-            "$ref": "#/components/schemas/MenuActionPayload"
-          },
-          {
             "$ref": "#/components/schemas/UnfurlActionPayload"
-          },
-          {
-            "$ref": "#/components/schemas/ChangeServerUrlPayload"
-          },
-          {
-            "$ref": "#/components/schemas/RefreshTokenPayload"
-          },
-          {
-            "$ref": "#/components/schemas/NewUnfurlQueueItemsPayload"
           },
           {
             "$ref": "#/components/schemas/ListCommandsPayload"
           },
           {
-            "$ref": "#/components/schemas/MessageActionPayload"
-          },
-          {
-            "$ref": "#/components/schemas/ChangeClientSecretPayload"
-          },
-          {
             "$ref": "#/components/schemas/MessagePayload"
+          },
+          {
+            "$ref": "#/components/schemas/WebhookRequestPayload"
+          },
+          {
+            "$ref": "#/components/schemas/MenuActionPayload"
+          },
+          {
+            "$ref": "#/components/schemas/RefreshTokenPayload"
           }
         ],
         "discriminator": {
@@ -40723,25 +41060,25 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/DocumentAppUnfurlContext"
+            "$ref": "#/components/schemas/TodoItemUnfurlContext"
           },
           {
             "$ref": "#/components/schemas/ChatMessageUnfurlContext"
           },
           {
-            "$ref": "#/components/schemas/IssueUnfurlContext"
-          },
-          {
-            "$ref": "#/components/schemas/ArticleAppUnfurlContext"
-          },
-          {
-            "$ref": "#/components/schemas/TodoItemUnfurlContext"
+            "$ref": "#/components/schemas/DocumentAppUnfurlContext"
           },
           {
             "$ref": "#/components/schemas/CodeReviewUnfurlContext"
           },
           {
+            "$ref": "#/components/schemas/ArticleAppUnfurlContext"
+          },
+          {
             "$ref": "#/components/schemas/CommitMessageUnfurlContext"
+          },
+          {
+            "$ref": "#/components/schemas/IssueUnfurlContext"
           }
         ],
         "discriminator": {
@@ -41234,16 +41571,6 @@
             "type": "string",
             "format": "date-time"
           },
-          "content": {
-            "type": "string"
-          },
-          "attachments": {
-            "nullable": true,
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AttachmentInfo"
-            }
-          },
           "event": {
             "nullable": true,
             "$ref": "#/components/schemas/MeetingRecord"
@@ -41266,8 +41593,25 @@
             "nullable": true,
             "$ref": "#/components/schemas/ExternalEntityInfoRecord"
           },
-          "editable": {
-            "type": "boolean"
+          "channel": {
+            "$ref": "#/components/schemas/M2ChannelRecord"
+          },
+          "channelContent": {
+            "nullable": true,
+            "$ref": "#/components/schemas/M2ChannelContentRecord"
+          },
+          "reactions": {
+            "$ref": "#/components/schemas/AllReactionsToItemRecord"
+          },
+          "content": {
+            "type": "string"
+          },
+          "attachments": {
+            "nullable": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AttachmentInfo"
+            }
           },
           "previewImages": {
             "type": "array",
@@ -41294,15 +41638,8 @@
             "nullable": true,
             "type": "boolean"
           },
-          "channel": {
-            "$ref": "#/components/schemas/M2ChannelRecord"
-          },
-          "channelContent": {
-            "nullable": true,
-            "$ref": "#/components/schemas/M2ChannelContentRecord"
-          },
-          "reactions": {
-            "$ref": "#/components/schemas/AllReactionsToItemRecord"
+          "editable": {
+            "type": "boolean"
           }
         },
         "required": [
@@ -41312,12 +41649,12 @@
           "created",
           "author",
           "aliases",
+          "channel",
+          "reactions",
           "content",
-          "editable",
           "previewImages",
           "preview",
-          "channel",
-          "reactions"
+          "editable"
         ]
       },
       "AssignedPerson": {
@@ -41347,16 +41684,16 @@
             "$ref": "#/components/schemas/DeletedAttachment"
           },
           {
-            "$ref": "#/components/schemas/ProfileLinkPreview"
-          },
-          {
-            "$ref": "#/components/schemas/FileAttachment"
+            "$ref": "#/components/schemas/VideoAttachment"
           },
           {
             "$ref": "#/components/schemas/ImageAttachment"
           },
           {
-            "$ref": "#/components/schemas/VideoAttachment"
+            "$ref": "#/components/schemas/FileAttachment"
+          },
+          {
+            "$ref": "#/components/schemas/ProfileLinkPreview"
           }
         ],
         "discriminator": {
@@ -41374,13 +41711,13 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/FileAttachment"
+            "$ref": "#/components/schemas/VideoAttachment"
           },
           {
             "$ref": "#/components/schemas/ImageAttachment"
           },
           {
-            "$ref": "#/components/schemas/VideoAttachment"
+            "$ref": "#/components/schemas/FileAttachment"
           }
         ],
         "discriminator": {
@@ -41398,6 +41735,51 @@
             "$ref": "#/components/schemas/Attachment"
           }
         }
+      },
+      "AttachmentUnfurlDetails": {
+        "properties": {
+          "className": {
+            "type": "string"
+          }
+        },
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsCodeSnippet"
+          },
+          {
+            "$ref": "#/components/schemas/AutomationJobExecutionUnfurlDetails"
+          },
+          {
+            "$ref": "#/components/schemas/ChannelItemSnapshot"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsMeeting"
+          },
+          {
+            "$ref": "#/components/schemas/CallSessionUnfurlDetails"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsMC"
+          },
+          {
+            "$ref": "#/components/schemas/AutomationJobUnfurlDetails"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsArticle"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDeployTargetDetails"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsImage"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "className"
+        },
+        "required": [
+          "className"
+        ]
       },
       "AuthCodeFlowPermissionsRequest": {
         "type": "object",
@@ -41604,6 +41986,25 @@
           "triggerTime"
         ]
       },
+      "AutomationJobExecutionUnfurlDetails": {
+        "type": "object",
+        "properties": {
+          "jobExecutionId": {
+            "type": "string"
+          },
+          "projectRef": {
+            "$ref": "#/components/schemas/PR_Project"
+          },
+          "repoName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "jobExecutionId",
+          "projectRef",
+          "repoName"
+        ]
+      },
       "AutomationJobSubscriptionFilter": {
         "type": "object",
         "properties": {
@@ -41665,6 +42066,41 @@
             }
           }
         }
+      },
+      "AutomationJobUnfurlDetails": {
+        "type": "object",
+        "properties": {
+          "jobId": {
+            "type": "string"
+          },
+          "jobName": {
+            "type": "string"
+          },
+          "projectRef": {
+            "$ref": "#/components/schemas/PR_Project"
+          },
+          "repoName": {
+            "type": "string"
+          },
+          "jobExecutionDisplayStatusFilter": {
+            "nullable": true,
+            "$ref": "#/components/schemas/JobExecutionDisplayStatus"
+          },
+          "jobTriggerFilter": {
+            "nullable": true,
+            "$ref": "#/components/schemas/JobTriggerType"
+          },
+          "branch": {
+            "nullable": true,
+            "$ref": "#/components/schemas/Branch"
+          }
+        },
+        "required": [
+          "jobId",
+          "jobName",
+          "projectRef",
+          "repoName"
+        ]
       },
       "AutomationServiceMetadata": {
         "type": "object",
@@ -41884,6 +42320,26 @@
             "type": "number",
             "format": "double"
           },
+          "activeGuests": {
+            "nullable": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          "paidActiveGuests": {
+            "nullable": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          "freeActiveGuests": {
+            "nullable": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          "guestCost": {
+            "nullable": true,
+            "type": "number",
+            "format": "double"
+          },
           "storageAllocationB": {
             "nullable": true,
             "type": "integer",
@@ -42041,6 +42497,18 @@
         },
         "anyOf": [
           {
+            "$ref": "#/components/schemas/RtHeading"
+          },
+          {
+            "$ref": "#/components/schemas/RtParagraph"
+          },
+          {
+            "$ref": "#/components/schemas/RtBulletList"
+          },
+          {
+            "$ref": "#/components/schemas/RtListItem"
+          },
+          {
             "$ref": "#/components/schemas/RtBlockquote"
           },
           {
@@ -42053,10 +42521,22 @@
             "$ref": "#/components/schemas/RtTableCell"
           },
           {
+            "$ref": "#/components/schemas/RtTable"
+          },
+          {
+            "$ref": "#/components/schemas/RtOrderedList"
+          },
+          {
+            "$ref": "#/components/schemas/RtDocument"
+          },
+          {
+            "$ref": "#/components/schemas/RtCode"
+          },
+          {
             "$ref": "#/components/schemas/RtHeading"
           },
           {
-            "$ref": "#/components/schemas/RtTable"
+            "$ref": "#/components/schemas/RtParagraph"
           },
           {
             "$ref": "#/components/schemas/RtBulletList"
@@ -42065,16 +42545,76 @@
             "$ref": "#/components/schemas/RtListItem"
           },
           {
-            "$ref": "#/components/schemas/RtCode"
+            "$ref": "#/components/schemas/RtBlockquote"
+          },
+          {
+            "$ref": "#/components/schemas/RtTableRow"
+          },
+          {
+            "$ref": "#/components/schemas/RtTableHeader"
+          },
+          {
+            "$ref": "#/components/schemas/RtTableCell"
+          },
+          {
+            "$ref": "#/components/schemas/RtTable"
           },
           {
             "$ref": "#/components/schemas/RtOrderedList"
           },
           {
-            "$ref": "#/components/schemas/RtParagraph"
+            "$ref": "#/components/schemas/RtDocument"
+          },
+          {
+            "$ref": "#/components/schemas/RtCode"
           },
           {
             "$ref": "#/components/schemas/RtHorizontalRule"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "className"
+        },
+        "required": [
+          "className"
+        ]
+      },
+      "BlockNodeWithMarks": {
+        "properties": {
+          "className": {
+            "type": "string"
+          }
+        },
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/RtHeading"
+          },
+          {
+            "$ref": "#/components/schemas/RtParagraph"
+          },
+          {
+            "$ref": "#/components/schemas/RtBulletList"
+          },
+          {
+            "$ref": "#/components/schemas/RtListItem"
+          },
+          {
+            "$ref": "#/components/schemas/RtBlockquote"
+          },
+          {
+            "$ref": "#/components/schemas/RtTableRow"
+          },
+          {
+            "$ref": "#/components/schemas/RtTableHeader"
+          },
+          {
+            "$ref": "#/components/schemas/RtTableCell"
+          },
+          {
+            "$ref": "#/components/schemas/RtTable"
+          },
+          {
+            "$ref": "#/components/schemas/RtOrderedList"
           },
           {
             "$ref": "#/components/schemas/RtDocument"
@@ -42327,13 +42867,13 @@
               "old": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/TD_MemberProfile"
+                  "$ref": "#/components/schemas/TD_Team"
                 }
               },
               "new": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/TD_MemberProfile"
+                  "$ref": "#/components/schemas/TD_Team"
                 }
               }
             },
@@ -42349,13 +42889,13 @@
               "old": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/TD_MemberProfile"
+                  "$ref": "#/components/schemas/TD_Location"
                 }
               },
               "new": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/TD_MemberProfile"
+                  "$ref": "#/components/schemas/TD_Location"
                 }
               }
             },
@@ -42650,6 +43190,81 @@
           "ref"
         ]
       },
+      "BusinessEntityRelationEvent": {
+        "type": "object",
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/KMetaMod"
+          },
+          "relation": {
+            "type": "string"
+          },
+          "entity": {
+            "type": "string"
+          },
+          "member": {
+            "$ref": "#/components/schemas/TD_MemberProfile"
+          },
+          "since": {
+            "nullable": true,
+            "type": "object",
+            "properties": {
+              "old": {
+                "type": "string",
+                "format": "full-date"
+              },
+              "new": {
+                "type": "string",
+                "format": "full-date"
+              }
+            },
+            "required": [
+              "old",
+              "new"
+            ]
+          },
+          "till": {
+            "nullable": true,
+            "type": "object",
+            "properties": {
+              "old": {
+                "type": "string",
+                "format": "full-date"
+              },
+              "new": {
+                "type": "string",
+                "format": "full-date"
+              }
+            },
+            "required": [
+              "old",
+              "new"
+            ]
+          },
+          "archived": {
+            "nullable": true,
+            "type": "object",
+            "properties": {
+              "old": {
+                "type": "boolean"
+              },
+              "new": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "old",
+              "new"
+            ]
+          }
+        },
+        "required": [
+          "meta",
+          "relation",
+          "entity",
+          "member"
+        ]
+      },
       "CApplicationPrincipalDetails": {
         "type": "object",
         "properties": {
@@ -42803,13 +43418,13 @@
             "$ref": "#/components/schemas/IntCFConstraint"
           },
           {
-            "$ref": "#/components/schemas/StringCFConstraint"
+            "$ref": "#/components/schemas/DateTimeCFConstraint"
           },
           {
             "$ref": "#/components/schemas/DateCFConstraint"
           },
           {
-            "$ref": "#/components/schemas/DateTimeCFConstraint"
+            "$ref": "#/components/schemas/StringCFConstraint"
           }
         ],
         "discriminator": {
@@ -42830,19 +43445,19 @@
             "$ref": "#/components/schemas/ContactCFParameters"
           },
           {
-            "$ref": "#/components/schemas/AutonumberCFParameters"
+            "$ref": "#/components/schemas/EnumCFInputParameters"
           },
           {
             "$ref": "#/components/schemas/VcsCommitCFParametersInput"
-          },
-          {
-            "$ref": "#/components/schemas/EnumCFInputParameters"
           },
           {
             "$ref": "#/components/schemas/OpenEnumCFCreateParameters"
           },
           {
             "$ref": "#/components/schemas/DocumentCFParametersInput"
+          },
+          {
+            "$ref": "#/components/schemas/AutonumberCFParameters"
           }
         ],
         "discriminator": {
@@ -42968,63 +43583,6 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/DeploymentCFInputValue"
-          },
-          {
-            "$ref": "#/components/schemas/PercentageCFValue"
-          },
-          {
-            "$ref": "#/components/schemas/EnumCFValue"
-          },
-          {
-            "$ref": "#/components/schemas/IssueListCFInputValue"
-          },
-          {
-            "$ref": "#/components/schemas/IssueCFInputValue"
-          },
-          {
-            "$ref": "#/components/schemas/FractionCFValue"
-          },
-          {
-            "$ref": "#/components/schemas/StringListCFValue"
-          },
-          {
-            "$ref": "#/components/schemas/IntListCFValue"
-          },
-          {
-            "$ref": "#/components/schemas/ContactCFValue"
-          },
-          {
-            "$ref": "#/components/schemas/VcsCommitCFInputValue"
-          },
-          {
-            "$ref": "#/components/schemas/EnumListCFValue"
-          },
-          {
-            "$ref": "#/components/schemas/DateTimeCFValue"
-          },
-          {
-            "$ref": "#/components/schemas/LocationCFInputValue"
-          },
-          {
-            "$ref": "#/components/schemas/StringCFValue"
-          },
-          {
-            "$ref": "#/components/schemas/EnumListCFInputValue"
-          },
-          {
-            "$ref": "#/components/schemas/DocumentCFInputValue"
-          },
-          {
-            "$ref": "#/components/schemas/IntCFValue"
-          },
-          {
-            "$ref": "#/components/schemas/EnumCFInputValue"
-          },
-          {
-            "$ref": "#/components/schemas/ProjectCFInputValue"
-          },
-          {
             "$ref": "#/components/schemas/TeamCFInputValue"
           },
           {
@@ -43034,40 +43592,97 @@
             "$ref": "#/components/schemas/ContactListCFValue"
           },
           {
-            "$ref": "#/components/schemas/VcsCommitListCFInputValue"
+            "$ref": "#/components/schemas/DocumentCFInputValue"
           },
           {
-            "$ref": "#/components/schemas/AutonumberCFValue"
+            "$ref": "#/components/schemas/EnumCFValue"
           },
           {
-            "$ref": "#/components/schemas/DocumentListCFInputValue"
-          },
-          {
-            "$ref": "#/components/schemas/BooleanCFValue"
+            "$ref": "#/components/schemas/IntCFValue"
           },
           {
             "$ref": "#/components/schemas/ProfileCFInputValue"
           },
           {
-            "$ref": "#/components/schemas/OpenEnumCFValue"
-          },
-          {
-            "$ref": "#/components/schemas/TargetCFInputValue"
-          },
-          {
-            "$ref": "#/components/schemas/DateCFValue"
-          },
-          {
-            "$ref": "#/components/schemas/ProfileListCFInputValue"
+            "$ref": "#/components/schemas/PercentageCFValue"
           },
           {
             "$ref": "#/components/schemas/OpenEnumListCFValue"
+          },
+          {
+            "$ref": "#/components/schemas/DocumentListCFInputValue"
+          },
+          {
+            "$ref": "#/components/schemas/StringListCFValue"
+          },
+          {
+            "$ref": "#/components/schemas/ProjectCFInputValue"
+          },
+          {
+            "$ref": "#/components/schemas/IntListCFValue"
+          },
+          {
+            "$ref": "#/components/schemas/IssueCFInputValue"
+          },
+          {
+            "$ref": "#/components/schemas/AutonumberCFValue"
+          },
+          {
+            "$ref": "#/components/schemas/VcsCommitListCFInputValue"
           },
           {
             "$ref": "#/components/schemas/OpenEnumListCFInputValue"
           },
           {
             "$ref": "#/components/schemas/UrlCFValue"
+          },
+          {
+            "$ref": "#/components/schemas/IssueListCFInputValue"
+          },
+          {
+            "$ref": "#/components/schemas/StringCFValue"
+          },
+          {
+            "$ref": "#/components/schemas/DeploymentCFInputValue"
+          },
+          {
+            "$ref": "#/components/schemas/ContactCFValue"
+          },
+          {
+            "$ref": "#/components/schemas/ProfileListCFInputValue"
+          },
+          {
+            "$ref": "#/components/schemas/VcsCommitCFInputValue"
+          },
+          {
+            "$ref": "#/components/schemas/DateTimeCFValue"
+          },
+          {
+            "$ref": "#/components/schemas/LocationCFInputValue"
+          },
+          {
+            "$ref": "#/components/schemas/DateCFValue"
+          },
+          {
+            "$ref": "#/components/schemas/EnumListCFValue"
+          },
+          {
+            "$ref": "#/components/schemas/EnumListCFInputValue"
+          },
+          {
+            "$ref": "#/components/schemas/TargetCFInputValue"
+          },
+          {
+            "$ref": "#/components/schemas/FractionCFValue"
+          },
+          {
+            "$ref": "#/components/schemas/EnumCFInputValue"
+          },
+          {
+            "$ref": "#/components/schemas/BooleanCFValue"
+          },
+          {
+            "$ref": "#/components/schemas/OpenEnumCFValue"
           }
         ],
         "discriminator": {
@@ -43088,16 +43703,16 @@
             "$ref": "#/components/schemas/ContactCFParameters"
           },
           {
-            "$ref": "#/components/schemas/EnumCFParameters"
+            "$ref": "#/components/schemas/VcsCommitCFParameters"
           },
           {
             "$ref": "#/components/schemas/AutonumberCFParameters"
           },
           {
-            "$ref": "#/components/schemas/DocumentCFParameters"
+            "$ref": "#/components/schemas/EnumCFParameters"
           },
           {
-            "$ref": "#/components/schemas/VcsCommitCFParameters"
+            "$ref": "#/components/schemas/DocumentCFParameters"
           }
         ],
         "discriminator": {
@@ -43115,76 +43730,16 @@
         },
         "anyOf": [
           {
+            "$ref": "#/components/schemas/UrlCFType"
+          },
+          {
             "$ref": "#/components/schemas/DocumentListCFType"
-          },
-          {
-            "$ref": "#/components/schemas/PercentageCFType"
-          },
-          {
-            "$ref": "#/components/schemas/OpenEnumListCFType"
-          },
-          {
-            "$ref": "#/components/schemas/DateTimeCFType"
-          },
-          {
-            "$ref": "#/components/schemas/StringListCFType"
-          },
-          {
-            "$ref": "#/components/schemas/ProfileCFType"
-          },
-          {
-            "$ref": "#/components/schemas/TargetCFType"
-          },
-          {
-            "$ref": "#/components/schemas/VcsCommitListCFType"
-          },
-          {
-            "$ref": "#/components/schemas/OpenEnumCFType"
-          },
-          {
-            "$ref": "#/components/schemas/EnumCFType"
-          },
-          {
-            "$ref": "#/components/schemas/StringCFType"
-          },
-          {
-            "$ref": "#/components/schemas/DeploymentCFType"
-          },
-          {
-            "$ref": "#/components/schemas/BooleanCFType"
-          },
-          {
-            "$ref": "#/components/schemas/IssueCFType"
-          },
-          {
-            "$ref": "#/components/schemas/ProjectCFType"
-          },
-          {
-            "$ref": "#/components/schemas/ContactCFType"
-          },
-          {
-            "$ref": "#/components/schemas/EnumListCFType"
           },
           {
             "$ref": "#/components/schemas/ProfileListCFType"
           },
           {
-            "$ref": "#/components/schemas/IntListCFType"
-          },
-          {
-            "$ref": "#/components/schemas/DateCFType"
-          },
-          {
-            "$ref": "#/components/schemas/TeamCFType"
-          },
-          {
-            "$ref": "#/components/schemas/UrlCFType"
-          },
-          {
-            "$ref": "#/components/schemas/IntCFType"
-          },
-          {
-            "$ref": "#/components/schemas/AutonumberCFType"
+            "$ref": "#/components/schemas/DeploymentCFType"
           },
           {
             "$ref": "#/components/schemas/VcsCommitCFType"
@@ -43193,16 +43748,76 @@
             "$ref": "#/components/schemas/ContactListCFType"
           },
           {
-            "$ref": "#/components/schemas/IssueListCFType"
+            "$ref": "#/components/schemas/IntCFType"
           },
           {
-            "$ref": "#/components/schemas/LocationCFType"
+            "$ref": "#/components/schemas/DateCFType"
+          },
+          {
+            "$ref": "#/components/schemas/TargetCFType"
+          },
+          {
+            "$ref": "#/components/schemas/OpenEnumListCFType"
           },
           {
             "$ref": "#/components/schemas/FractionCFType"
           },
           {
+            "$ref": "#/components/schemas/IssueListCFType"
+          },
+          {
+            "$ref": "#/components/schemas/EnumListCFType"
+          },
+          {
             "$ref": "#/components/schemas/DocumentCFType"
+          },
+          {
+            "$ref": "#/components/schemas/IssueCFType"
+          },
+          {
+            "$ref": "#/components/schemas/BooleanCFType"
+          },
+          {
+            "$ref": "#/components/schemas/IntListCFType"
+          },
+          {
+            "$ref": "#/components/schemas/DateTimeCFType"
+          },
+          {
+            "$ref": "#/components/schemas/PercentageCFType"
+          },
+          {
+            "$ref": "#/components/schemas/LocationCFType"
+          },
+          {
+            "$ref": "#/components/schemas/StringListCFType"
+          },
+          {
+            "$ref": "#/components/schemas/OpenEnumCFType"
+          },
+          {
+            "$ref": "#/components/schemas/VcsCommitListCFType"
+          },
+          {
+            "$ref": "#/components/schemas/ProfileCFType"
+          },
+          {
+            "$ref": "#/components/schemas/TeamCFType"
+          },
+          {
+            "$ref": "#/components/schemas/AutonumberCFType"
+          },
+          {
+            "$ref": "#/components/schemas/ProjectCFType"
+          },
+          {
+            "$ref": "#/components/schemas/StringCFType"
+          },
+          {
+            "$ref": "#/components/schemas/EnumCFType"
+          },
+          {
+            "$ref": "#/components/schemas/ContactCFType"
           }
         ],
         "discriminator": {
@@ -43223,19 +43838,19 @@
             "$ref": "#/components/schemas/ContactCFParameters"
           },
           {
-            "$ref": "#/components/schemas/OpenEnumCFUpdateParameters"
-          },
-          {
-            "$ref": "#/components/schemas/AutonumberCFParameters"
+            "$ref": "#/components/schemas/EnumCFInputParameters"
           },
           {
             "$ref": "#/components/schemas/VcsCommitCFParametersInput"
           },
           {
-            "$ref": "#/components/schemas/EnumCFInputParameters"
+            "$ref": "#/components/schemas/OpenEnumCFUpdateParameters"
           },
           {
             "$ref": "#/components/schemas/DocumentCFParametersInput"
+          },
+          {
+            "$ref": "#/components/schemas/AutonumberCFParameters"
           }
         ],
         "discriminator": {
@@ -43253,25 +43868,25 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/ProfileCFValue"
+            "$ref": "#/components/schemas/ContactListCFValue"
           },
           {
-            "$ref": "#/components/schemas/VcsCommitCFValue"
-          },
-          {
-            "$ref": "#/components/schemas/IssueListCFValue"
-          },
-          {
-            "$ref": "#/components/schemas/PercentageCFValue"
+            "$ref": "#/components/schemas/TargetCFValue"
           },
           {
             "$ref": "#/components/schemas/EnumCFValue"
           },
           {
-            "$ref": "#/components/schemas/DocumentCFValue"
+            "$ref": "#/components/schemas/IntCFValue"
           },
           {
-            "$ref": "#/components/schemas/FractionCFValue"
+            "$ref": "#/components/schemas/ProjectCFValue"
+          },
+          {
+            "$ref": "#/components/schemas/PercentageCFValue"
+          },
+          {
+            "$ref": "#/components/schemas/OpenEnumListCFValue"
           },
           {
             "$ref": "#/components/schemas/StringListCFValue"
@@ -43280,22 +43895,25 @@
             "$ref": "#/components/schemas/IntListCFValue"
           },
           {
-            "$ref": "#/components/schemas/ContactCFValue"
+            "$ref": "#/components/schemas/ProfileCFValue"
           },
           {
-            "$ref": "#/components/schemas/TeamCFValue"
+            "$ref": "#/components/schemas/AutonumberCFValue"
           },
           {
-            "$ref": "#/components/schemas/EnumListCFValue"
+            "$ref": "#/components/schemas/VcsCommitCFValue"
           },
           {
-            "$ref": "#/components/schemas/DateTimeCFValue"
+            "$ref": "#/components/schemas/ProfileListCFValue"
           },
           {
-            "$ref": "#/components/schemas/LocationCFValue"
+            "$ref": "#/components/schemas/DocumentCFValue"
           },
           {
-            "$ref": "#/components/schemas/DeploymentCFValue"
+            "$ref": "#/components/schemas/IssueListCFValue"
+          },
+          {
+            "$ref": "#/components/schemas/UrlCFValue"
           },
           {
             "$ref": "#/components/schemas/StringCFValue"
@@ -43304,43 +43922,40 @@
             "$ref": "#/components/schemas/IssueCFValue"
           },
           {
-            "$ref": "#/components/schemas/IntCFValue"
-          },
-          {
-            "$ref": "#/components/schemas/ProfileListCFValue"
-          },
-          {
-            "$ref": "#/components/schemas/ContactListCFValue"
-          },
-          {
-            "$ref": "#/components/schemas/ProjectCFValue"
-          },
-          {
-            "$ref": "#/components/schemas/AutonumberCFValue"
-          },
-          {
-            "$ref": "#/components/schemas/BooleanCFValue"
+            "$ref": "#/components/schemas/ContactCFValue"
           },
           {
             "$ref": "#/components/schemas/DocumentListCFValue"
           },
           {
+            "$ref": "#/components/schemas/DateTimeCFValue"
+          },
+          {
+            "$ref": "#/components/schemas/DeploymentCFValue"
+          },
+          {
             "$ref": "#/components/schemas/VcsCommitListCFValue"
-          },
-          {
-            "$ref": "#/components/schemas/OpenEnumCFValue"
-          },
-          {
-            "$ref": "#/components/schemas/TargetCFValue"
           },
           {
             "$ref": "#/components/schemas/DateCFValue"
           },
           {
-            "$ref": "#/components/schemas/OpenEnumListCFValue"
+            "$ref": "#/components/schemas/EnumListCFValue"
           },
           {
-            "$ref": "#/components/schemas/UrlCFValue"
+            "$ref": "#/components/schemas/LocationCFValue"
+          },
+          {
+            "$ref": "#/components/schemas/FractionCFValue"
+          },
+          {
+            "$ref": "#/components/schemas/OpenEnumCFValue"
+          },
+          {
+            "$ref": "#/components/schemas/BooleanCFValue"
+          },
+          {
+            "$ref": "#/components/schemas/TeamCFValue"
           }
         ],
         "discriminator": {
@@ -43373,19 +43988,19 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/CUserWithEmailPrincipalDetails"
+            "$ref": "#/components/schemas/CApplicationPrincipalDetails"
           },
           {
             "$ref": "#/components/schemas/CUserPrincipalDetails"
           },
           {
-            "$ref": "#/components/schemas/CApplicationPrincipalDetails"
+            "$ref": "#/components/schemas/CAutomationTaskPrincipalDetails"
+          },
+          {
+            "$ref": "#/components/schemas/CUserWithEmailPrincipalDetails"
           },
           {
             "$ref": "#/components/schemas/CBuiltInServicePrincipalDetails"
-          },
-          {
-            "$ref": "#/components/schemas/CAutomationTaskPrincipalDetails"
           }
         ],
         "discriminator": {
@@ -43662,6 +44277,17 @@
           "participations"
         ]
       },
+      "CallSessionUnfurlDetails": {
+        "type": "object",
+        "properties": {
+          "session": {
+            "$ref": "#/components/schemas/CallSession"
+          }
+        },
+        "required": [
+          "session"
+        ]
+      },
       "CertificateInfo": {
         "type": "object",
         "properties": {
@@ -43781,10 +44407,10 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/M2ChannelContentCodeDiscussionInReview"
+            "$ref": "#/components/schemas/M2ChannelContactThread"
           },
           {
-            "$ref": "#/components/schemas/M2ChannelContactThread"
+            "$ref": "#/components/schemas/M2ChannelContentCodeDiscussionInReview"
           }
         ],
         "discriminator": {
@@ -44229,10 +44855,6 @@
           "name": {
             "type": "string"
           },
-          "legacyName": {
-            "nullable": true,
-            "type": "string"
-          },
           "icon": {
             "nullable": true,
             "type": "string"
@@ -44597,6 +45219,70 @@
           "className"
         ]
       },
+      "ChatMessageReactionAddedEvent": {
+        "type": "object",
+        "properties": {
+          "messageId": {
+            "type": "string"
+          },
+          "channelId": {
+            "type": "string"
+          },
+          "threadId": {
+            "nullable": true,
+            "type": "string"
+          },
+          "actor": {
+            "$ref": "#/components/schemas/CPrincipal"
+          },
+          "emoji": {
+            "type": "string"
+          },
+          "newCount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "required": [
+          "messageId",
+          "channelId",
+          "actor",
+          "emoji",
+          "newCount"
+        ]
+      },
+      "ChatMessageReactionRemovedEvent": {
+        "type": "object",
+        "properties": {
+          "messageId": {
+            "type": "string"
+          },
+          "channelId": {
+            "type": "string"
+          },
+          "threadId": {
+            "nullable": true,
+            "type": "string"
+          },
+          "actor": {
+            "$ref": "#/components/schemas/CPrincipal"
+          },
+          "emoji": {
+            "type": "string"
+          },
+          "newCount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "required": [
+          "messageId",
+          "channelId",
+          "actor",
+          "emoji",
+          "newCount"
+        ]
+      },
       "ChatMessageUnfurlContext": {
         "type": "object",
         "properties": {
@@ -44896,25 +45582,25 @@
             "$ref": "#/components/schemas/DeletePersonalFeedAction"
           },
           {
+            "$ref": "#/components/schemas/NavigateUrlActionContext"
+          },
+          {
+            "$ref": "#/components/schemas/NewMergeRequestFromIssueActionContext"
+          },
+          {
             "$ref": "#/components/schemas/DeleteAutomationLegacyChannelAction"
           },
           {
             "$ref": "#/components/schemas/PostponeWorkspaceDeletionChannelAction"
           },
           {
-            "$ref": "#/components/schemas/NewMergeRequestFromIssueActionContext"
+            "$ref": "#/components/schemas/ConfigurePermissionsAction"
           },
           {
             "$ref": "#/components/schemas/OpenPersonalFeedSettingsAction"
           },
           {
             "$ref": "#/components/schemas/DeleteAllAutomationLegacyChannelsAction"
-          },
-          {
-            "$ref": "#/components/schemas/ConfigurePermissionsAction"
-          },
-          {
-            "$ref": "#/components/schemas/NavigateUrlActionContext"
           }
         ],
         "discriminator": {
@@ -45262,6 +45948,113 @@
           "review",
           "created",
           "archived"
+        ]
+      },
+      "CodeReviewEditableByMe": {
+        "type": "object",
+        "properties": {}
+      },
+      "CodeReviewMenuActionContext": {
+        "type": "object",
+        "properties": {
+          "projectIdentifier": {
+            "$ref": "#/components/schemas/ProjectIdentifier"
+          },
+          "codeReviewIdentifier": {
+            "$ref": "#/components/schemas/ReviewIdentifier"
+          }
+        },
+        "required": [
+          "projectIdentifier",
+          "codeReviewIdentifier"
+        ]
+      },
+      "CodeReviewMenuItemUiExtensionApi": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": "string"
+          },
+          "description": {
+            "nullable": true,
+            "type": "string"
+          },
+          "menuItemUniqueCode": {
+            "type": "string"
+          },
+          "visibilityFilters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CodeReviewMenuItemVisibilityFilterApi"
+            }
+          }
+        },
+        "required": [
+          "displayName",
+          "menuItemUniqueCode",
+          "visibilityFilters"
+        ]
+      },
+      "CodeReviewMenuItemUiExtensionIn": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": "string"
+          },
+          "description": {
+            "nullable": true,
+            "type": "string"
+          },
+          "menuItemUniqueCode": {
+            "type": "string"
+          },
+          "visibilityFilters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CodeReviewMenuItemVisibilityFilterIn"
+            }
+          }
+        },
+        "required": [
+          "displayName",
+          "menuItemUniqueCode",
+          "visibilityFilters"
+        ]
+      },
+      "CodeReviewMenuItemVisibilityFilterApi": {
+        "properties": {
+          "className": {
+            "type": "string"
+          }
+        },
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/CodeReviewEditableByMe"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "className"
+        },
+        "required": [
+          "className"
+        ]
+      },
+      "CodeReviewMenuItemVisibilityFilterIn": {
+        "properties": {
+          "className": {
+            "type": "string"
+          }
+        },
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/CodeReviewEditableByMe"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "className"
+        },
+        "required": [
+          "className"
         ]
       },
       "CodeReviewParticipant": {
@@ -45644,6 +46437,39 @@
           "participants"
         ]
       },
+      "CodeSnippetAnchor": {
+        "type": "object",
+        "properties": {
+          "projectKey": {
+            "$ref": "#/components/schemas/ProjectKey"
+          },
+          "repository": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "string"
+          },
+          "filename": {
+            "type": "string"
+          },
+          "lineIndex": {
+            "nullable": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          "linesCount": {
+            "nullable": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "required": [
+          "projectKey",
+          "repository",
+          "revision",
+          "filename"
+        ]
+      },
       "CodeSuggestedEditHeadContentDetails": {
         "type": "object",
         "properties": {
@@ -45765,6 +46591,24 @@
           "commitId"
         ]
       },
+      "CommitMessageUnfurlsRecord": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "unfurls": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Unfurl"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "unfurls"
+        ]
+      },
       "CommitSetReviewRecord": {
         "type": "object",
         "properties": {
@@ -45807,8 +46651,11 @@
             "nullable": true,
             "$ref": "#/components/schemas/M2ChannelRecord"
           },
-          "discussionCounter": {
-            "$ref": "#/components/schemas/DiscussionCounter"
+          "commits": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReviewCommit"
+            }
           },
           "participants": {
             "nullable": true,
@@ -45841,11 +46688,8 @@
               "type": "string"
             }
           },
-          "commits": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ReviewCommit"
-            }
+          "discussionCounter": {
+            "$ref": "#/components/schemas/DiscussionCounter"
           }
         },
         "required": [
@@ -45856,12 +46700,12 @@
           "title",
           "state",
           "createdAt",
-          "discussionCounter",
+          "commits",
           "reviewers",
           "authors",
           "watchers",
           "issueIds",
-          "commits"
+          "discussionCounter"
         ]
       },
       "ComposerPackageDependency": {
@@ -46551,6 +47395,9 @@
             "$ref": "#/components/schemas/DocumentFolderMenuItemUiExtensionApi"
           },
           {
+            "$ref": "#/components/schemas/CodeReviewMenuItemUiExtensionApi"
+          },
+          {
             "$ref": "#/components/schemas/MeetingMenuItemUiExtensionApi"
           },
           {
@@ -46578,19 +47425,22 @@
         },
         "anyOf": [
           {
+            "$ref": "#/components/schemas/ChatMessageMenuItemUiExtensionIn"
+          },
+          {
             "$ref": "#/components/schemas/MeetingMenuItemUiExtensionIn"
-          },
-          {
-            "$ref": "#/components/schemas/IssueMenuItemUiExtensionIn"
-          },
-          {
-            "$ref": "#/components/schemas/DocumentFolderMenuItemUiExtensionIn"
           },
           {
             "$ref": "#/components/schemas/DocumentMenuItemUiExtensionIn"
           },
           {
-            "$ref": "#/components/schemas/ChatMessageMenuItemUiExtensionIn"
+            "$ref": "#/components/schemas/CodeReviewMenuItemUiExtensionIn"
+          },
+          {
+            "$ref": "#/components/schemas/DocumentFolderMenuItemUiExtensionIn"
+          },
+          {
+            "$ref": "#/components/schemas/IssueMenuItemUiExtensionIn"
           }
         ],
         "discriminator": {
@@ -46598,6 +47448,223 @@
         },
         "required": [
           "className"
+        ]
+      },
+      "CratesPackageDependency": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "versionReq": {
+            "type": "string"
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "optional": {
+            "type": "boolean"
+          },
+          "defaultFeatures": {
+            "type": "boolean"
+          },
+          "target": {
+            "nullable": true,
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "registry": {
+            "nullable": true,
+            "type": "string"
+          },
+          "explicitNameInToml": {
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "versionReq",
+          "features",
+          "optional",
+          "defaultFeatures",
+          "kind"
+        ]
+      },
+      "CratesPackageType": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "CratesPackageVersionDetails": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "tags": {
+            "nullable": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "created": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "accessed": {
+            "nullable": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          "downloads": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "pinned": {
+            "type": "boolean"
+          },
+          "comment": {
+            "nullable": true,
+            "type": "string"
+          },
+          "diskSize": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "author": {
+            "nullable": true,
+            "$ref": "#/components/schemas/CPrincipal"
+          },
+          "authors": {
+            "nullable": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CPrincipal"
+            }
+          },
+          "origin": {
+            "nullable": true,
+            "$ref": "#/components/schemas/PackageOrigin"
+          },
+          "metadata": {
+            "nullable": true,
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "dependencies": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CratesPackageDependency"
+            }
+          },
+          "features": {
+            "nullable": true,
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "authorsFromPackageDetails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "description": {
+            "nullable": true,
+            "type": "string"
+          },
+          "documentation": {
+            "nullable": true,
+            "type": "string"
+          },
+          "homepage": {
+            "nullable": true,
+            "type": "string"
+          },
+          "readme": {
+            "nullable": true,
+            "type": "string"
+          },
+          "readmeFilePath": {
+            "nullable": true,
+            "type": "string"
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "license": {
+            "nullable": true,
+            "type": "string"
+          },
+          "licenseFileContent": {
+            "nullable": true,
+            "type": "string"
+          },
+          "gitRepository": {
+            "nullable": true,
+            "type": "string"
+          },
+          "badges": {
+            "nullable": true,
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "links": {
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "repository",
+          "name",
+          "version",
+          "created",
+          "downloads",
+          "pinned",
+          "diskSize",
+          "dependencies",
+          "authorsFromPackageDetails",
+          "keywords",
+          "categories"
         ]
       },
       "Currency": {
@@ -46636,6 +47703,122 @@
         "required": [
           "key",
           "fieldId"
+        ]
+      },
+      "CustomEmojiAddedEvent": {
+        "type": "object",
+        "properties": {
+          "emoji": {
+            "type": "string"
+          },
+          "owner": {
+            "$ref": "#/components/schemas/CPrincipal"
+          },
+          "attachmentId": {
+            "type": "string"
+          },
+          "uploadedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "emoji",
+          "owner",
+          "attachmentId",
+          "uploadedAt"
+        ]
+      },
+      "CustomEmojiDeletedEvent": {
+        "type": "object",
+        "properties": {
+          "emoji": {
+            "type": "string"
+          },
+          "owner": {
+            "$ref": "#/components/schemas/CPrincipal"
+          }
+        },
+        "required": [
+          "emoji",
+          "owner"
+        ]
+      },
+      "CustomEmojiInfo": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "provider": {
+            "$ref": "#/components/schemas/CPrincipal"
+          },
+          "uploaded": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "attachmentId": {
+            "nullable": true,
+            "type": "string"
+          },
+          "deleted": {
+            "nullable": true,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "provider",
+          "uploaded"
+        ]
+      },
+      "CustomEmojiUpdatedEvent": {
+        "type": "object",
+        "properties": {
+          "emoji": {
+            "type": "string"
+          },
+          "owner": {
+            "$ref": "#/components/schemas/CPrincipal"
+          },
+          "attachmentId": {
+            "nullable": true,
+            "type": "object",
+            "properties": {
+              "old": {
+                "type": "string"
+              },
+              "new": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "old",
+              "new"
+            ]
+          },
+          "uploadedAt": {
+            "nullable": true,
+            "type": "object",
+            "properties": {
+              "old": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "new": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "old",
+              "new"
+            ]
+          }
+        },
+        "required": [
+          "emoji",
+          "owner"
         ]
       },
       "CustomField": {
@@ -47482,6 +48665,23 @@
           }
         }
       },
+      "DateTimeViewParams": {
+        "type": "object",
+        "properties": {
+          "format": {
+            "nullable": true,
+            "$ref": "#/components/schemas/UnfurlDateTimeFormat"
+          },
+          "style": {
+            "nullable": true,
+            "$ref": "#/components/schemas/UnfurlDateTimeStyle"
+          },
+          "template": {
+            "nullable": true,
+            "type": "string"
+          }
+        }
+      },
       "DeleteAllAutomationLegacyChannelsAction": {
         "type": "object",
         "properties": {}
@@ -47538,53 +48738,6 @@
           "deletedIdentity"
         ]
       },
-      "DeployTargetDTO": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "key": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "string"
-          },
-          "lastUpdated": {
-            "nullable": true,
-            "type": "string"
-          },
-          "lastDeployed": {
-            "nullable": true,
-            "type": "string"
-          },
-          "current": {
-            "nullable": true,
-            "$ref": "#/components/schemas/DeploymentInfo"
-          },
-          "next": {
-            "nullable": true,
-            "$ref": "#/components/schemas/DeploymentInfo"
-          },
-          "connectedChannel": {
-            "nullable": true,
-            "$ref": "#/components/schemas/M2ChannelRecord"
-          }
-        },
-        "required": [
-          "id",
-          "name",
-          "key",
-          "description",
-          "createdAt"
-        ]
-      },
       "DeployTargetRecord": {
         "type": "object",
         "properties": {
@@ -47606,10 +48759,6 @@
           "createdAt": {
             "type": "string"
           },
-          "createdBy": {
-            "nullable": true,
-            "$ref": "#/components/schemas/CPrincipal"
-          },
           "lastUpdated": {
             "nullable": true,
             "type": "string"
@@ -47618,11 +48767,18 @@
             "nullable": true,
             "type": "string"
           },
-          "channelId": {
-            "type": "string"
-          },
           "channel": {
             "$ref": "#/components/schemas/M2ChannelRecord"
+          },
+          "archived": {
+            "type": "boolean"
+          },
+          "createdBy": {
+            "nullable": true,
+            "$ref": "#/components/schemas/CPrincipal"
+          },
+          "channelId": {
+            "type": "string"
           },
           "repositories": {
             "type": "array",
@@ -47643,8 +48799,13 @@
             "type": "integer",
             "format": "int32"
           },
-          "archived": {
-            "type": "boolean"
+          "current": {
+            "nullable": true,
+            "$ref": "#/components/schemas/DeploymentInfo"
+          },
+          "next": {
+            "nullable": true,
+            "$ref": "#/components/schemas/DeploymentInfo"
           }
         },
         "required": [
@@ -47654,11 +48815,11 @@
           "key",
           "description",
           "createdAt",
-          "channelId",
           "channel",
+          "archived",
+          "channelId",
           "repositories",
-          "manualControl",
-          "archived"
+          "manualControl"
         ]
       },
       "DeployTargetRepositoryDTO": {
@@ -47669,6 +48830,10 @@
           },
           "missing": {
             "type": "boolean"
+          },
+          "repositoryId": {
+            "nullable": true,
+            "type": "string"
           }
         },
         "required": [
@@ -48291,13 +49456,13 @@
         },
         "anyOf": [
           {
+            "$ref": "#/components/schemas/TextDocumentBodyCreateTypedIn"
+          },
+          {
             "$ref": "#/components/schemas/ChecklistDocumentBodyCreateIn"
           },
           {
             "$ref": "#/components/schemas/FileDocumentBodyCreateIn"
-          },
-          {
-            "$ref": "#/components/schemas/TextDocumentBodyCreateTypedIn"
           }
         ],
         "discriminator": {
@@ -48315,22 +49480,22 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/FileDocumentBody"
-          },
-          {
-            "$ref": "#/components/schemas/TextDocument"
-          },
-          {
-            "$ref": "#/components/schemas/TextDocumentBodyInfo"
+            "$ref": "#/components/schemas/InaccessibleDocumentBody"
           },
           {
             "$ref": "#/components/schemas/ChecklistDocumentBody"
           },
           {
+            "$ref": "#/components/schemas/TextDocumentBodyInfo"
+          },
+          {
             "$ref": "#/components/schemas/FileDocumentBodyInfo"
           },
           {
-            "$ref": "#/components/schemas/InaccessibleDocumentBody"
+            "$ref": "#/components/schemas/FileDocumentBody"
+          },
+          {
+            "$ref": "#/components/schemas/TextDocument"
           }
         ],
         "discriminator": {
@@ -48348,16 +49513,16 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/ChecklistDocumentBodyEditIn"
-          },
-          {
             "$ref": "#/components/schemas/FileDocumentBodyUpdateIn"
           },
           {
-            "$ref": "#/components/schemas/TextDocumentBodyConvertTypeIn"
+            "$ref": "#/components/schemas/ChecklistDocumentBodyEditIn"
           },
           {
             "$ref": "#/components/schemas/TextDocumentBodyUpdateIn"
+          },
+          {
+            "$ref": "#/components/schemas/TextDocumentBodyConvertTypeIn"
           }
         ],
         "discriminator": {
@@ -48762,6 +49927,51 @@
           "documents"
         ]
       },
+      "DocumentHistoryUnfurlDetails": {
+        "type": "object",
+        "properties": {
+          "document": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "version": {
+            "nullable": true,
+            "type": "string",
+            "format": "date-time"
+          },
+          "base": {
+            "nullable": true,
+            "type": "string",
+            "format": "date-time"
+          },
+          "preview": {
+            "nullable": true,
+            "type": "string",
+            "format": "date-time"
+          },
+          "version2": {
+            "nullable": true,
+            "type": "string",
+            "format": "date-time"
+          },
+          "base2": {
+            "nullable": true,
+            "type": "string",
+            "format": "date-time"
+          },
+          "preview2": {
+            "nullable": true,
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "document",
+          "title"
+        ]
+      },
       "DocumentListCFInputValue": {
         "type": "object",
         "properties": {
@@ -48802,6 +50012,12 @@
         },
         "anyOf": [
           {
+            "$ref": "#/components/schemas/RtItalicMark"
+          },
+          {
+            "$ref": "#/components/schemas/RtCodeMark"
+          },
+          {
             "$ref": "#/components/schemas/RtBoldMark"
           },
           {
@@ -48809,12 +50025,6 @@
           },
           {
             "$ref": "#/components/schemas/RtStrikeThroughMark"
-          },
-          {
-            "$ref": "#/components/schemas/RtCodeMark"
-          },
-          {
-            "$ref": "#/components/schemas/RtItalicMark"
           }
         ],
         "discriminator": {
@@ -49210,6 +50420,13 @@
           "archived": {
             "type": "boolean"
           },
+          "metadata": {
+            "nullable": true,
+            "$ref": "#/components/schemas/ApplicationMetadata"
+          },
+          "settings": {
+            "$ref": "#/components/schemas/ES_AppSettings"
+          },
           "contexts": {
             "type": "array",
             "items": {
@@ -49227,13 +50444,6 @@
             "items": {
               "$ref": "#/components/schemas/ApplicationUnfurlDomain"
             }
-          },
-          "metadata": {
-            "nullable": true,
-            "$ref": "#/components/schemas/ApplicationMetadata"
-          },
-          "settings": {
-            "$ref": "#/components/schemas/ES_AppSettings"
           }
         },
         "required": [
@@ -49241,10 +50451,10 @@
           "clientId",
           "name",
           "archived",
+          "settings",
           "contexts",
           "patterns",
-          "domains",
-          "settings"
+          "domains"
         ]
       },
       "ES_AppSettings": {
@@ -49420,28 +50630,28 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/ES_HiddenAuthModuleSettings"
-          },
-          {
             "$ref": "#/components/schemas/ES_BuiltinAuthModuleSettings"
           },
           {
             "$ref": "#/components/schemas/ES_LdapAuthModuleSettings"
           },
           {
-            "$ref": "#/components/schemas/ES_GoogleAuthModuleSettings"
+            "$ref": "#/components/schemas/ES_HiddenAuthModuleSettings"
           },
           {
-            "$ref": "#/components/schemas/ES_GithubAuthModuleSettings"
+            "$ref": "#/components/schemas/ES_GoogleAuthModuleSettings"
           },
           {
             "$ref": "#/components/schemas/ES_HubAuthModuleSettings"
           },
           {
+            "$ref": "#/components/schemas/ES_OIDCAuthModuleSettings"
+          },
+          {
             "$ref": "#/components/schemas/ES_AzureAuthModuleSettings"
           },
           {
-            "$ref": "#/components/schemas/ES_OIDCAuthModuleSettings"
+            "$ref": "#/components/schemas/ES_GithubAuthModuleSettings"
           },
           {
             "$ref": "#/components/schemas/ES_SamlAuthModuleSettings"
@@ -49573,6 +50783,19 @@
           "immutableTags"
         ]
       },
+      "ES_CratesRegistrySettings": {
+        "type": "object",
+        "properties": {
+          "retentionPolicyParams": {
+            "nullable": true,
+            "$ref": "#/components/schemas/RetentionPolicyParams"
+          },
+          "immutablePackageVersions": {
+            "nullable": true,
+            "type": "boolean"
+          }
+        }
+      },
       "ES_DartRepositorySettings": {
         "type": "object",
         "properties": {
@@ -49646,16 +50869,16 @@
             "$ref": "#/components/schemas/ES_GoogleAuthModuleSettings"
           },
           {
-            "$ref": "#/components/schemas/ES_GithubAuthModuleSettings"
+            "$ref": "#/components/schemas/ES_HubAuthModuleSettings"
           },
           {
-            "$ref": "#/components/schemas/ES_HubAuthModuleSettings"
+            "$ref": "#/components/schemas/ES_OIDCAuthModuleSettings"
           },
           {
             "$ref": "#/components/schemas/ES_AzureAuthModuleSettings"
           },
           {
-            "$ref": "#/components/schemas/ES_OIDCAuthModuleSettings"
+            "$ref": "#/components/schemas/ES_GithubAuthModuleSettings"
           },
           {
             "$ref": "#/components/schemas/ES_SamlAuthModuleSettings"
@@ -50025,16 +51248,16 @@
             "$ref": "#/components/schemas/ES_GoogleAuthModuleSettings"
           },
           {
-            "$ref": "#/components/schemas/ES_GithubAuthModuleSettings"
+            "$ref": "#/components/schemas/ES_HubAuthModuleSettings"
           },
           {
-            "$ref": "#/components/schemas/ES_HubAuthModuleSettings"
+            "$ref": "#/components/schemas/ES_OIDCAuthModuleSettings"
           },
           {
             "$ref": "#/components/schemas/ES_AzureAuthModuleSettings"
           },
           {
-            "$ref": "#/components/schemas/ES_OIDCAuthModuleSettings"
+            "$ref": "#/components/schemas/ES_GithubAuthModuleSettings"
           }
         ],
         "discriminator": {
@@ -50052,10 +51275,10 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/ES_OAuthInternalApp"
+            "$ref": "#/components/schemas/ES_OAuthUserApp"
           },
           {
-            "$ref": "#/components/schemas/ES_OAuthUserApp"
+            "$ref": "#/components/schemas/ES_OAuthInternalApp"
           }
         ],
         "discriminator": {
@@ -50174,28 +51397,31 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/ES_NuGetFeedSettings"
+            "$ref": "#/components/schemas/ES_ContainerRegistrySettings"
+          },
+          {
+            "$ref": "#/components/schemas/ES_CratesRegistrySettings"
+          },
+          {
+            "$ref": "#/components/schemas/ES_FileRepositorySettings"
           },
           {
             "$ref": "#/components/schemas/ES_ComposerRepositorySettings"
           },
           {
-            "$ref": "#/components/schemas/ES_ContainerRegistrySettings"
-          },
-          {
-            "$ref": "#/components/schemas/ES_MavenRepositorySettings"
+            "$ref": "#/components/schemas/ES_DartRepositorySettings"
           },
           {
             "$ref": "#/components/schemas/ES_NpmRegistrySettings"
           },
           {
+            "$ref": "#/components/schemas/ES_NuGetFeedSettings"
+          },
+          {
             "$ref": "#/components/schemas/ES_PythonPackageIndexSettings"
           },
           {
-            "$ref": "#/components/schemas/ES_DartRepositorySettings"
-          },
-          {
-            "$ref": "#/components/schemas/ES_FileRepositorySettings"
+            "$ref": "#/components/schemas/ES_MavenRepositorySettings"
           }
         ],
         "discriminator": {
@@ -50298,13 +51524,13 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/ES_BuiltinProfileLoginDetails"
-          },
-          {
             "$ref": "#/components/schemas/ES_DefaultProfileLoginDetails"
           },
           {
             "$ref": "#/components/schemas/ES_GithubProfileLoginDetails"
+          },
+          {
+            "$ref": "#/components/schemas/ES_BuiltinProfileLoginDetails"
           },
           {
             "$ref": "#/components/schemas/ES_HubProfileLoginDetails"
@@ -51087,6 +52313,10 @@
           "sortOrder": {
             "type": "integer",
             "format": "int32"
+          },
+          "payloadApiClassName": {
+            "nullable": true,
+            "type": "string"
           }
         },
         "required": [
@@ -51531,28 +52761,28 @@
             "$ref": "#/components/schemas/CodeDiscussionAddedFeedEvent"
           },
           {
-            "$ref": "#/components/schemas/ReviewBranchTrackEvent"
+            "$ref": "#/components/schemas/MergeRequestBranchRestoredEvent"
+          },
+          {
+            "$ref": "#/components/schemas/ReviewStateChangedEvent"
           },
           {
             "$ref": "#/components/schemas/ReviewerChangedEvent"
           },
           {
-            "$ref": "#/components/schemas/ReviewRevisionsChangedEvent"
-          },
-          {
             "$ref": "#/components/schemas/ReviewTitleChangedEvent"
           },
           {
-            "$ref": "#/components/schemas/ReviewCompletionStateChangedEvent"
+            "$ref": "#/components/schemas/ReviewBranchTrackEvent"
+          },
+          {
+            "$ref": "#/components/schemas/ReviewRevisionsChangedEvent"
           },
           {
             "$ref": "#/components/schemas/MergeRequestBranchDeletedEvent"
           },
           {
-            "$ref": "#/components/schemas/MergeRequestBranchRestoredEvent"
-          },
-          {
-            "$ref": "#/components/schemas/ReviewStateChangedEvent"
+            "$ref": "#/components/schemas/ReviewCompletionStateChangedEvent"
           },
           {
             "$ref": "#/components/schemas/MergeRequestMergedEvent"
@@ -51746,6 +52976,28 @@
           "id",
           "archived",
           "body"
+        ]
+      },
+      "FileSetInReview": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "type": "string"
+          },
+          "commit": {
+            "type": "string"
+          },
+          "paths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "repository",
+          "commit",
+          "paths"
         ]
       },
       "FileType": {
@@ -52515,6 +53767,17 @@
       "GlobalScope": {
         "type": "object",
         "properties": {}
+      },
+      "GoogleIntegrationDisconnectedEvent": {
+        "type": "object",
+        "properties": {
+          "member": {
+            "$ref": "#/components/schemas/TD_MemberProfile"
+          }
+        },
+        "required": [
+          "member"
+        ]
       },
       "GpgKeyData": {
         "type": "object",
@@ -54038,6 +55301,165 @@
           },
           {
             "$ref": "#/components/schemas/RtBreak"
+          },
+          {
+            "$ref": "#/components/schemas/RtMention"
+          },
+          {
+            "$ref": "#/components/schemas/RtUnfurl"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "className"
+        },
+        "required": [
+          "className"
+        ]
+      },
+      "InlineNodeWithMarks": {
+        "properties": {
+          "className": {
+            "type": "string"
+          }
+        },
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/RtImage"
+          },
+          {
+            "$ref": "#/components/schemas/RtText"
+          },
+          {
+            "$ref": "#/components/schemas/RtEmoji"
+          },
+          {
+            "$ref": "#/components/schemas/RtBreak"
+          },
+          {
+            "$ref": "#/components/schemas/RtMention"
+          },
+          {
+            "$ref": "#/components/schemas/RtUnfurl"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "className"
+        },
+        "required": [
+          "className"
+        ]
+      },
+      "InlineUnfurlDetails": {
+        "properties": {
+          "className": {
+            "type": "string"
+          }
+        },
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsMeeting"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsApplication"
+          },
+          {
+            "$ref": "#/components/schemas/AutomationJobUnfurlDetails"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsLocation"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsCommit"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsDateTimeRange"
+          },
+          {
+            "$ref": "#/components/schemas/DocumentHistoryUnfurlDetails"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsChecklist"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsIssueTag"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsChatLink"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsShortCommit"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsDraft"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsPackageDetails"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsIssueImportTransaction"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsIssue"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsTextDiff"
+          },
+          {
+            "$ref": "#/components/schemas/AutomationJobExecutionUnfurlDetails"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsRole"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsFolder"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsChat"
+          },
+          {
+            "$ref": "#/components/schemas/CallSessionUnfurlDetails"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsDateTime"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsProfile"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsProject"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsSnapshotDiff"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsSprint"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsTeam"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsCodeReview"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsIssueId"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsIssueStatus"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsArticle"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDeployTargetDetails"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsRepositoryBranch"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDeploymentDetails"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsIssueTopic"
           }
         ],
         "discriminator": {
@@ -54319,24 +55741,17 @@
             "type": "string",
             "format": "date-time"
           },
-          "messageOrigin": {
-            "nullable": true,
-            "$ref": "#/components/schemas/ChannelItemRecord"
+          "checklists": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Checklist"
+            }
           },
           "sprints": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/SprintRecord"
             }
-          },
-          "parents": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Issue"
-            }
-          },
-          "subItemsList": {
-            "$ref": "#/components/schemas/Checklist"
           },
           "description": {
             "nullable": true,
@@ -54358,11 +55773,18 @@
               "$ref": "#/components/schemas/AttachmentInfo"
             }
           },
-          "checklists": {
+          "subItemsList": {
+            "$ref": "#/components/schemas/Checklist"
+          },
+          "parents": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Checklist"
+              "$ref": "#/components/schemas/Issue"
             }
+          },
+          "messagePermalink": {
+            "nullable": true,
+            "type": "string"
           },
           "customFields": {
             "type": "object",
@@ -54381,12 +55803,12 @@
           "status",
           "tags",
           "title",
+          "checklists",
           "sprints",
-          "parents",
-          "subItemsList",
           "channel",
           "attachments",
-          "checklists",
+          "subItemsList",
+          "parents",
           "customFields"
         ]
       },
@@ -54452,31 +55874,28 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/IssueDescriptionChangedDetails"
-          },
-          {
-            "$ref": "#/components/schemas/IssueAssigneeChangedDetails"
-          },
-          {
-            "$ref": "#/components/schemas/IssueMentionedDetails"
-          },
-          {
-            "$ref": "#/components/schemas/IssueStatusChangedDetails"
+            "$ref": "#/components/schemas/IssueCreatedDetails"
           },
           {
             "$ref": "#/components/schemas/IssueTagsChangedDetails"
           },
           {
+            "$ref": "#/components/schemas/IssueMentionedDetails"
+          },
+          {
+            "$ref": "#/components/schemas/IssueTitleChangedDetails"
+          },
+          {
             "$ref": "#/components/schemas/IssueMCExtension"
           },
           {
-            "$ref": "#/components/schemas/IssueAttachmentsChangedDetails"
+            "$ref": "#/components/schemas/IssueAssigneeChangedDetails"
           },
           {
-            "$ref": "#/components/schemas/IssueDeletedDetails"
+            "$ref": "#/components/schemas/IssueStatusChangedDetails"
           },
           {
-            "$ref": "#/components/schemas/IssueCreatedDetails"
+            "$ref": "#/components/schemas/IssueDescriptionChangedDetails"
           },
           {
             "$ref": "#/components/schemas/IssueDueDateChangedDetails"
@@ -54485,7 +55904,10 @@
             "$ref": "#/components/schemas/IssueChecklistsChangedDetails"
           },
           {
-            "$ref": "#/components/schemas/IssueTitleChangedDetails"
+            "$ref": "#/components/schemas/IssueDeletedDetails"
+          },
+          {
+            "$ref": "#/components/schemas/IssueAttachmentsChangedDetails"
           }
         ],
         "discriminator": {
@@ -54633,6 +56055,21 @@
             "type": "string"
           }
         }
+      },
+      "IssueImportTransactionWebhookEvent": {
+        "type": "object",
+        "properties": {
+          "meta": {
+            "$ref": "#/components/schemas/KMetaMod"
+          },
+          "importTransaction": {
+            "$ref": "#/components/schemas/ImportTransactionRecord"
+          }
+        },
+        "required": [
+          "meta",
+          "importTransaction"
+        ]
       },
       "IssueListCFInputValue": {
         "type": "object",
@@ -56088,40 +57525,49 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/SpaceNewsFeedChannel"
-          },
-          {
-            "$ref": "#/components/schemas/M2ChannelContentCodeDiscussion"
-          },
-          {
             "$ref": "#/components/schemas/M2ChannelContentApplication"
           },
           {
-            "$ref": "#/components/schemas/M2ChannelContentMember"
-          },
-          {
-            "$ref": "#/components/schemas/M2SharedChannelContent"
-          },
-          {
-            "$ref": "#/components/schemas/M2ChannelAutomationJobFeedInfo"
-          },
-          {
-            "$ref": "#/components/schemas/M2ChannelContactArticle"
+            "$ref": "#/components/schemas/M2ChannelIssueInfo"
           },
           {
             "$ref": "#/components/schemas/M2ChannelRdWsTimelineInfo"
           },
           {
-            "$ref": "#/components/schemas/M2PrivateConversationChannelContent"
-          },
-          {
             "$ref": "#/components/schemas/BillingFeedChannel"
           },
           {
-            "$ref": "#/components/schemas/DeploymentTargetM2ChannelInfo"
+            "$ref": "#/components/schemas/M2PrivateConversationChannelContent"
           },
           {
             "$ref": "#/components/schemas/M2ChannelContentCodeReviewFeed"
+          },
+          {
+            "$ref": "#/components/schemas/SpaceNewsFeedChannel"
+          },
+          {
+            "$ref": "#/components/schemas/M2SharedChannelContent"
+          },
+          {
+            "$ref": "#/components/schemas/M2ChannelContentCodeDiscussion"
+          },
+          {
+            "$ref": "#/components/schemas/M2ChannelContactArticle"
+          },
+          {
+            "$ref": "#/components/schemas/M2ChannelContactThread"
+          },
+          {
+            "$ref": "#/components/schemas/M2ChannelContentCodeDiscussionInReview"
+          },
+          {
+            "$ref": "#/components/schemas/M2ChannelContentNamedPrivateChannel"
+          },
+          {
+            "$ref": "#/components/schemas/M2ChannelAutomationJobFeedInfo"
+          },
+          {
+            "$ref": "#/components/schemas/M2ChannelContactCallDiscussion"
           },
           {
             "$ref": "#/components/schemas/M2ChannelContentCodeReviewDiscussion"
@@ -56130,22 +57576,13 @@
             "$ref": "#/components/schemas/M2ChannelContactObsolete"
           },
           {
-            "$ref": "#/components/schemas/M2ChannelContentCodeDiscussionInReview"
-          },
-          {
-            "$ref": "#/components/schemas/M2ChannelContactThread"
-          },
-          {
-            "$ref": "#/components/schemas/M2ChannelContactCallDiscussion"
-          },
-          {
-            "$ref": "#/components/schemas/M2ChannelContentNamedPrivateChannel"
-          },
-          {
-            "$ref": "#/components/schemas/M2ChannelIssueInfo"
+            "$ref": "#/components/schemas/DeploymentTargetM2ChannelInfo"
           },
           {
             "$ref": "#/components/schemas/DeploymentM2ChannelInfo"
+          },
+          {
+            "$ref": "#/components/schemas/M2ChannelContentMember"
           }
         ],
         "discriminator": {
@@ -56336,46 +57773,46 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/SpaceNewsFeedChannel"
-          },
-          {
-            "$ref": "#/components/schemas/M2ChannelContentCodeDiscussion"
+            "$ref": "#/components/schemas/M2ChannelContentArticle"
           },
           {
             "$ref": "#/components/schemas/M2ChannelContentApplication"
           },
           {
-            "$ref": "#/components/schemas/M2ChannelContentMember"
-          },
-          {
-            "$ref": "#/components/schemas/M2ChannelContentThread"
-          },
-          {
-            "$ref": "#/components/schemas/M2SharedChannelContent"
-          },
-          {
-            "$ref": "#/components/schemas/M2ChannelAutomationJobFeedInfo"
-          },
-          {
-            "$ref": "#/components/schemas/M2ChannelContentArticle"
+            "$ref": "#/components/schemas/M2ChannelIssueInfo"
           },
           {
             "$ref": "#/components/schemas/M2ChannelRdWsTimelineInfo"
           },
           {
-            "$ref": "#/components/schemas/M2PrivateConversationChannelContent"
+            "$ref": "#/components/schemas/M2ChannelContentThread"
           },
           {
             "$ref": "#/components/schemas/BillingFeedChannel"
           },
           {
-            "$ref": "#/components/schemas/DeploymentTargetM2ChannelInfo"
-          },
-          {
-            "$ref": "#/components/schemas/M2ChannelContentCallDiscussion"
+            "$ref": "#/components/schemas/M2PrivateConversationChannelContent"
           },
           {
             "$ref": "#/components/schemas/M2ChannelContentCodeReviewFeed"
+          },
+          {
+            "$ref": "#/components/schemas/SpaceNewsFeedChannel"
+          },
+          {
+            "$ref": "#/components/schemas/M2SharedChannelContent"
+          },
+          {
+            "$ref": "#/components/schemas/M2ChannelContentCodeDiscussion"
+          },
+          {
+            "$ref": "#/components/schemas/M2ChannelContentNamedPrivateChannel"
+          },
+          {
+            "$ref": "#/components/schemas/M2ChannelAutomationJobFeedInfo"
+          },
+          {
+            "$ref": "#/components/schemas/M2ChannelContentCallDiscussion"
           },
           {
             "$ref": "#/components/schemas/M2ChannelContentCodeReviewDiscussion"
@@ -56384,13 +57821,13 @@
             "$ref": "#/components/schemas/M2ChannelContactObsolete"
           },
           {
-            "$ref": "#/components/schemas/M2ChannelContentNamedPrivateChannel"
-          },
-          {
-            "$ref": "#/components/schemas/M2ChannelIssueInfo"
+            "$ref": "#/components/schemas/DeploymentTargetM2ChannelInfo"
           },
           {
             "$ref": "#/components/schemas/DeploymentM2ChannelInfo"
+          },
+          {
+            "$ref": "#/components/schemas/M2ChannelContentMember"
           }
         ],
         "discriminator": {
@@ -56714,79 +58151,16 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/M2AbsenceItemApproveDeletedContent"
+            "$ref": "#/components/schemas/CodeSuggestedEditHeadContentDetails"
           },
           {
-            "$ref": "#/components/schemas/MembershipMCExtension"
+            "$ref": "#/components/schemas/M2AbsenceItemApprovedContent"
           },
           {
-            "$ref": "#/components/schemas/DeploymentM2DetailsWithThread"
+            "$ref": "#/components/schemas/M2ChannelFeedIntroItemDetails"
           },
           {
             "$ref": "#/components/schemas/MembersAddedItemDetails"
-          },
-          {
-            "$ref": "#/components/schemas/M2AbsenceItemUpdatedContent"
-          },
-          {
-            "$ref": "#/components/schemas/M2AbsenceItemContent"
-          },
-          {
-            "$ref": "#/components/schemas/M2MemberContent"
-          },
-          {
-            "$ref": "#/components/schemas/M2MemberLeavesContent"
-          },
-          {
-            "$ref": "#/components/schemas/M2MemberJoinsContent"
-          },
-          {
-            "$ref": "#/components/schemas/M2ExternalStatusSucceedItemContent"
-          },
-          {
-            "$ref": "#/components/schemas/IssueDescriptionChangedDetails"
-          },
-          {
-            "$ref": "#/components/schemas/IssueAssigneeChangedDetails"
-          },
-          {
-            "$ref": "#/components/schemas/IssueMentionedDetails"
-          },
-          {
-            "$ref": "#/components/schemas/IssueStatusChangedDetails"
-          },
-          {
-            "$ref": "#/components/schemas/IssueTagsChangedDetails"
-          },
-          {
-            "$ref": "#/components/schemas/IssueMCExtension"
-          },
-          {
-            "$ref": "#/components/schemas/IssueAttachmentsChangedDetails"
-          },
-          {
-            "$ref": "#/components/schemas/IssueDeletedDetails"
-          },
-          {
-            "$ref": "#/components/schemas/IssueCreatedDetails"
-          },
-          {
-            "$ref": "#/components/schemas/IssueDueDateChangedDetails"
-          },
-          {
-            "$ref": "#/components/schemas/IssueChecklistsChangedDetails"
-          },
-          {
-            "$ref": "#/components/schemas/IssueTitleChangedDetails"
-          },
-          {
-            "$ref": "#/components/schemas/TeamAddedItemDetails"
-          },
-          {
-            "$ref": "#/components/schemas/M2TaskExecutionFailureItemContent"
-          },
-          {
-            "$ref": "#/components/schemas/M2DraftEditorTeamAddedItemContent"
           },
           {
             "$ref": "#/components/schemas/M2BlogItemContent"
@@ -56795,58 +58169,25 @@
             "$ref": "#/components/schemas/M2BlogItemPreview"
           },
           {
-            "$ref": "#/components/schemas/M2UserLeftChannel"
+            "$ref": "#/components/schemas/MCMessage"
           },
           {
-            "$ref": "#/components/schemas/M2AbsenceItemDeletedContent"
+            "$ref": "#/components/schemas/MembershipMCExtension"
           },
           {
-            "$ref": "#/components/schemas/M2ChannelCreatedItemDetails"
+            "$ref": "#/components/schemas/M2DraftEditorTeamAddedItemContent"
+          },
+          {
+            "$ref": "#/components/schemas/M2AbsenceItemContent"
+          },
+          {
+            "$ref": "#/components/schemas/M2MaintenanceActionContent"
           },
           {
             "$ref": "#/components/schemas/VideoCallChannelItemContent"
           },
           {
-            "$ref": "#/components/schemas/MCMessageCommonDetails"
-          },
-          {
-            "$ref": "#/components/schemas/M2PollContent"
-          },
-          {
-            "$ref": "#/components/schemas/M2MembershipContent"
-          },
-          {
-            "$ref": "#/components/schemas/M2MembershipRequestedContent"
-          },
-          {
-            "$ref": "#/components/schemas/M2MembershipTerminatedContent"
-          },
-          {
-            "$ref": "#/components/schemas/M2MembershipCreatedContent"
-          },
-          {
-            "$ref": "#/components/schemas/M2TextItemContent"
-          },
-          {
             "$ref": "#/components/schemas/CodeDiscussionAddedFeedEvent"
-          },
-          {
-            "$ref": "#/components/schemas/ReviewBranchTrackEvent"
-          },
-          {
-            "$ref": "#/components/schemas/ReviewerChangedEvent"
-          },
-          {
-            "$ref": "#/components/schemas/ReviewRevisionsChangedEvent"
-          },
-          {
-            "$ref": "#/components/schemas/ReviewTitleChangedEvent"
-          },
-          {
-            "$ref": "#/components/schemas/ReviewCompletionStateChangedEvent"
-          },
-          {
-            "$ref": "#/components/schemas/MergeRequestBranchDeletedEvent"
           },
           {
             "$ref": "#/components/schemas/MergeRequestBranchRestoredEvent"
@@ -56855,52 +58196,151 @@
             "$ref": "#/components/schemas/ReviewStateChangedEvent"
           },
           {
+            "$ref": "#/components/schemas/ReviewerChangedEvent"
+          },
+          {
+            "$ref": "#/components/schemas/ReviewTitleChangedEvent"
+          },
+          {
+            "$ref": "#/components/schemas/ReviewBranchTrackEvent"
+          },
+          {
+            "$ref": "#/components/schemas/ReviewRevisionsChangedEvent"
+          },
+          {
+            "$ref": "#/components/schemas/MergeRequestBranchDeletedEvent"
+          },
+          {
+            "$ref": "#/components/schemas/ReviewCompletionStateChangedEvent"
+          },
+          {
             "$ref": "#/components/schemas/MergeRequestMergedEvent"
           },
           {
             "$ref": "#/components/schemas/CodeReviewDiscussionAddedFeedEvent"
           },
           {
-            "$ref": "#/components/schemas/MCMessage"
+            "$ref": "#/components/schemas/M2ChannelRestoredItemDetails"
           },
           {
-            "$ref": "#/components/schemas/M2ChannelFeedIntroItemDetails"
+            "$ref": "#/components/schemas/TeamAddedItemDetails"
           },
           {
-            "$ref": "#/components/schemas/CodeSuggestedEditHeadContentDetails"
-          },
-          {
-            "$ref": "#/components/schemas/IssueCodeChangesMCExtension"
-          },
-          {
-            "$ref": "#/components/schemas/M2ChannelArchivedItemDetails"
-          },
-          {
-            "$ref": "#/components/schemas/M2AbsenceItemApprovedContent"
-          },
-          {
-            "$ref": "#/components/schemas/M2ExternalStatusFailureItemContent"
-          },
-          {
-            "$ref": "#/components/schemas/M2PackageCreatedDetails"
-          },
-          {
-            "$ref": "#/components/schemas/M2PackageDeletedDetails"
-          },
-          {
-            "$ref": "#/components/schemas/M2TaskExecutionSucceedItemContent"
+            "$ref": "#/components/schemas/DeploymentM2DetailsWithThread"
           },
           {
             "$ref": "#/components/schemas/M2DraftEditorAddedItemContent"
           },
           {
-            "$ref": "#/components/schemas/M2MaintenanceActionContent"
+            "$ref": "#/components/schemas/M2TextItemContent"
           },
           {
-            "$ref": "#/components/schemas/M2ChannelRestoredItemDetails"
+            "$ref": "#/components/schemas/M2PollContent"
+          },
+          {
+            "$ref": "#/components/schemas/M2MemberContent"
+          },
+          {
+            "$ref": "#/components/schemas/M2MemberJoinsContent"
+          },
+          {
+            "$ref": "#/components/schemas/M2MemberLeavesContent"
+          },
+          {
+            "$ref": "#/components/schemas/MCMessageCommonDetails"
+          },
+          {
+            "$ref": "#/components/schemas/M2PackageDeletedDetails"
+          },
+          {
+            "$ref": "#/components/schemas/M2PackageCreatedDetails"
+          },
+          {
+            "$ref": "#/components/schemas/M2TaskExecutionSucceedItemContent"
+          },
+          {
+            "$ref": "#/components/schemas/M2ChannelCreatedItemDetails"
+          },
+          {
+            "$ref": "#/components/schemas/M2ChannelArchivedItemDetails"
+          },
+          {
+            "$ref": "#/components/schemas/M2MembershipContent"
+          },
+          {
+            "$ref": "#/components/schemas/M2MembershipRequestedContent"
+          },
+          {
+            "$ref": "#/components/schemas/M2MembershipCreatedContent"
+          },
+          {
+            "$ref": "#/components/schemas/M2MembershipTerminatedContent"
+          },
+          {
+            "$ref": "#/components/schemas/M2AbsenceItemUpdatedContent"
+          },
+          {
+            "$ref": "#/components/schemas/M2ExternalStatusSucceedItemContent"
+          },
+          {
+            "$ref": "#/components/schemas/M2ExternalStatusFailureItemContent"
+          },
+          {
+            "$ref": "#/components/schemas/M2AbsenceItemApproveDeletedContent"
+          },
+          {
+            "$ref": "#/components/schemas/IssueCreatedDetails"
+          },
+          {
+            "$ref": "#/components/schemas/IssueTagsChangedDetails"
+          },
+          {
+            "$ref": "#/components/schemas/IssueMentionedDetails"
+          },
+          {
+            "$ref": "#/components/schemas/IssueTitleChangedDetails"
+          },
+          {
+            "$ref": "#/components/schemas/IssueMCExtension"
+          },
+          {
+            "$ref": "#/components/schemas/IssueAssigneeChangedDetails"
+          },
+          {
+            "$ref": "#/components/schemas/IssueStatusChangedDetails"
+          },
+          {
+            "$ref": "#/components/schemas/IssueDescriptionChangedDetails"
+          },
+          {
+            "$ref": "#/components/schemas/IssueDueDateChangedDetails"
+          },
+          {
+            "$ref": "#/components/schemas/IssueChecklistsChangedDetails"
+          },
+          {
+            "$ref": "#/components/schemas/IssueDeletedDetails"
+          },
+          {
+            "$ref": "#/components/schemas/IssueAttachmentsChangedDetails"
           },
           {
             "$ref": "#/components/schemas/DeploymentM2DetailsNoThread"
+          },
+          {
+            "$ref": "#/components/schemas/M2AbsenceItemDeletedContent"
+          },
+          {
+            "$ref": "#/components/schemas/M2TaskExecutionFailureItemContent"
+          },
+          {
+            "$ref": "#/components/schemas/IssueCodeChangesMCExtension"
+          },
+          {
+            "$ref": "#/components/schemas/M2UserLeftChannel"
+          },
+          {
+            "$ref": "#/components/schemas/StickerContentDetails"
           }
         ],
         "discriminator": {
@@ -56940,10 +58380,10 @@
             "$ref": "#/components/schemas/M2MemberContent"
           },
           {
-            "$ref": "#/components/schemas/M2MemberLeavesContent"
+            "$ref": "#/components/schemas/M2MemberJoinsContent"
           },
           {
-            "$ref": "#/components/schemas/M2MemberJoinsContent"
+            "$ref": "#/components/schemas/M2MemberLeavesContent"
           },
           {
             "type": "object",
@@ -56993,10 +58433,10 @@
             "$ref": "#/components/schemas/M2MembershipRequestedContent"
           },
           {
-            "$ref": "#/components/schemas/M2MembershipTerminatedContent"
+            "$ref": "#/components/schemas/M2MembershipCreatedContent"
           },
           {
-            "$ref": "#/components/schemas/M2MembershipCreatedContent"
+            "$ref": "#/components/schemas/M2MembershipTerminatedContent"
           },
           {
             "type": "object",
@@ -57055,10 +58495,10 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/M2PackageCreatedDetails"
+            "$ref": "#/components/schemas/M2PackageDeletedDetails"
           },
           {
-            "$ref": "#/components/schemas/M2PackageDeletedDetails"
+            "$ref": "#/components/schemas/M2PackageCreatedDetails"
           }
         ],
         "discriminator": {
@@ -57390,31 +58830,31 @@
             "$ref": "#/components/schemas/MCGroup"
           },
           {
-            "$ref": "#/components/schemas/MCImage"
-          },
-          {
-            "$ref": "#/components/schemas/MCFields"
-          },
-          {
-            "$ref": "#/components/schemas/MCIcon"
-          },
-          {
-            "$ref": "#/components/schemas/MCInlineGroup"
-          },
-          {
             "$ref": "#/components/schemas/MCSection"
           },
           {
             "$ref": "#/components/schemas/MCText"
           },
           {
-            "$ref": "#/components/schemas/MCButton"
+            "$ref": "#/components/schemas/MCInlineGroup"
+          },
+          {
+            "$ref": "#/components/schemas/MCFields"
           },
           {
             "$ref": "#/components/schemas/MCTag"
           },
           {
             "$ref": "#/components/schemas/MCParagraph"
+          },
+          {
+            "$ref": "#/components/schemas/MCButton"
+          },
+          {
+            "$ref": "#/components/schemas/MCIcon"
+          },
+          {
+            "$ref": "#/components/schemas/MCImage"
           },
           {
             "$ref": "#/components/schemas/MCDivider"
@@ -57514,19 +58954,19 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/MCTimestamp"
+            "$ref": "#/components/schemas/MCTag"
           },
           {
             "$ref": "#/components/schemas/MCInlineText"
           },
           {
-            "$ref": "#/components/schemas/MCIcon"
-          },
-          {
             "$ref": "#/components/schemas/MCButton"
           },
           {
-            "$ref": "#/components/schemas/MCTag"
+            "$ref": "#/components/schemas/MCTimestamp"
+          },
+          {
+            "$ref": "#/components/schemas/MCIcon"
           }
         ],
         "discriminator": {
@@ -58120,10 +59560,10 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/ImageAttachment"
+            "$ref": "#/components/schemas/VideoAttachment"
           },
           {
-            "$ref": "#/components/schemas/VideoAttachment"
+            "$ref": "#/components/schemas/ImageAttachment"
           }
         ],
         "discriminator": {
@@ -58478,22 +59918,25 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/ChannelMessageMenuActionContext"
+            "$ref": "#/components/schemas/CodeReviewMenuActionContext"
           },
           {
             "$ref": "#/components/schemas/IssueMenuActionContext"
           },
           {
-            "$ref": "#/components/schemas/BlogEventMenuActionContext"
+            "$ref": "#/components/schemas/DocumentMenuActionContext"
           },
           {
-            "$ref": "#/components/schemas/DocumentMenuActionContext"
+            "$ref": "#/components/schemas/ChannelMessageMenuActionContext"
           },
           {
             "$ref": "#/components/schemas/DocumentFolderMenuActionContext"
           },
           {
             "$ref": "#/components/schemas/MeetingMenuActionContext"
+          },
+          {
+            "$ref": "#/components/schemas/BlogEventMenuActionContext"
           }
         ],
         "discriminator": {
@@ -58541,6 +59984,9 @@
             "$ref": "#/components/schemas/DocumentFolderMenuItemUiExtensionApi"
           },
           {
+            "$ref": "#/components/schemas/CodeReviewMenuItemUiExtensionApi"
+          },
+          {
             "$ref": "#/components/schemas/MeetingMenuItemUiExtensionApi"
           },
           {
@@ -58568,19 +60014,22 @@
         },
         "anyOf": [
           {
+            "$ref": "#/components/schemas/ChatMessageMenuItemUiExtensionIn"
+          },
+          {
             "$ref": "#/components/schemas/MeetingMenuItemUiExtensionIn"
-          },
-          {
-            "$ref": "#/components/schemas/IssueMenuItemUiExtensionIn"
-          },
-          {
-            "$ref": "#/components/schemas/DocumentFolderMenuItemUiExtensionIn"
           },
           {
             "$ref": "#/components/schemas/DocumentMenuItemUiExtensionIn"
           },
           {
-            "$ref": "#/components/schemas/ChatMessageMenuItemUiExtensionIn"
+            "$ref": "#/components/schemas/CodeReviewMenuItemUiExtensionIn"
+          },
+          {
+            "$ref": "#/components/schemas/DocumentFolderMenuItemUiExtensionIn"
+          },
+          {
+            "$ref": "#/components/schemas/IssueMenuItemUiExtensionIn"
           }
         ],
         "discriminator": {
@@ -58761,8 +60210,11 @@
             "nullable": true,
             "$ref": "#/components/schemas/ExternalCodeReviewLink"
           },
-          "discussionCounter": {
-            "$ref": "#/components/schemas/DiscussionCounter"
+          "commits": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReviewCommit"
+            }
           },
           "participants": {
             "nullable": true,
@@ -58795,11 +60247,8 @@
               "type": "string"
             }
           },
-          "commits": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ReviewCommit"
-            }
+          "discussionCounter": {
+            "$ref": "#/components/schemas/DiscussionCounter"
           }
         },
         "required": [
@@ -58811,12 +60260,12 @@
           "state",
           "createdAt",
           "branchPairs",
-          "discussionCounter",
+          "commits",
           "reviewers",
           "authors",
           "watchers",
           "issueIds",
-          "commits"
+          "discussionCounter"
         ]
       },
       "MessageAccessoryElement": {
@@ -58827,10 +60276,10 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/MessageImage"
+            "$ref": "#/components/schemas/MessageTag"
           },
           {
-            "$ref": "#/components/schemas/MessageTag"
+            "$ref": "#/components/schemas/MessageImage"
           },
           {
             "$ref": "#/components/schemas/MessageIcon"
@@ -58903,19 +60352,19 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/MessageInlineGroup"
-          },
-          {
-            "$ref": "#/components/schemas/MessageDivider"
+            "$ref": "#/components/schemas/MessageFields"
           },
           {
             "$ref": "#/components/schemas/MessageText"
           },
           {
+            "$ref": "#/components/schemas/MessageInlineGroup"
+          },
+          {
             "$ref": "#/components/schemas/MessageControlGroup"
           },
           {
-            "$ref": "#/components/schemas/MessageFields"
+            "$ref": "#/components/schemas/MessageDivider"
           }
         ],
         "discriminator": {
@@ -59194,6 +60643,12 @@
         },
         "anyOf": [
           {
+            "$ref": "#/components/schemas/MessageTag"
+          },
+          {
+            "$ref": "#/components/schemas/MessageIcon"
+          },
+          {
             "$ref": "#/components/schemas/MessageInlineText"
           },
           {
@@ -59201,12 +60656,6 @@
           },
           {
             "$ref": "#/components/schemas/MessageTimestamp"
-          },
-          {
-            "$ref": "#/components/schemas/MessageTag"
-          },
-          {
-            "$ref": "#/components/schemas/MessageIcon"
           }
         ],
         "discriminator": {
@@ -59303,10 +60752,10 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/MessageOutlineElements"
+            "$ref": "#/components/schemas/MessageOutline"
           },
           {
-            "$ref": "#/components/schemas/MessageOutline"
+            "$ref": "#/components/schemas/MessageOutlineElements"
           }
         ],
         "discriminator": {
@@ -59755,6 +61204,57 @@
         "required": [
           "id",
           "name"
+        ]
+      },
+      "NodeWithChildren": {
+        "properties": {
+          "className": {
+            "type": "string"
+          }
+        },
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/RtHeading"
+          },
+          {
+            "$ref": "#/components/schemas/RtParagraph"
+          },
+          {
+            "$ref": "#/components/schemas/RtBulletList"
+          },
+          {
+            "$ref": "#/components/schemas/RtListItem"
+          },
+          {
+            "$ref": "#/components/schemas/RtBlockquote"
+          },
+          {
+            "$ref": "#/components/schemas/RtTableRow"
+          },
+          {
+            "$ref": "#/components/schemas/RtTableHeader"
+          },
+          {
+            "$ref": "#/components/schemas/RtTableCell"
+          },
+          {
+            "$ref": "#/components/schemas/RtTable"
+          },
+          {
+            "$ref": "#/components/schemas/RtOrderedList"
+          },
+          {
+            "$ref": "#/components/schemas/RtDocument"
+          },
+          {
+            "$ref": "#/components/schemas/RtCode"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "className"
+        },
+        "required": [
+          "className"
         ]
       },
       "NonWorkingDays": {
@@ -60269,15 +61769,15 @@
             "nullable": true,
             "type": "string"
           },
+          "logoId": {
+            "nullable": true,
+            "type": "string"
+          },
           "logoSmall": {
             "nullable": true,
             "type": "string"
           },
           "logo": {
-            "nullable": true,
-            "type": "string"
-          },
-          "logoId": {
             "nullable": true,
             "type": "string"
           },
@@ -60453,30 +61953,6 @@
           "archived": {
             "type": "boolean"
           },
-          "packages": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ProjectPackageRepository"
-            }
-          },
-          "guestProfiles": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TD_MemberProfile"
-            }
-          },
-          "collaboratorsProfiles": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TD_MemberProfile"
-            }
-          },
-          "collaboratorsTeams": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TD_Team"
-            }
-          },
           "type": {
             "$ref": "#/components/schemas/ProjectTeamType"
           },
@@ -60498,16 +61974,6 @@
             "nullable": true,
             "$ref": "#/components/schemas/TD_Team"
           },
-          "projectId": {
-            "type": "string"
-          },
-          "features": {
-            "nullable": true,
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ProjectFeatureState"
-            }
-          },
           "enable": {
             "type": "boolean"
           },
@@ -60522,10 +61988,10 @@
           "format": {
             "$ref": "#/components/schemas/DurationTextFormat"
           },
-          "trackers": {
+          "guestProfiles": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ProjectIssueTrackerItem"
+              "$ref": "#/components/schemas/TD_MemberProfile"
             }
           },
           "repos": {
@@ -60534,16 +62000,44 @@
               "$ref": "#/components/schemas/PR_RepositoryInfo"
             }
           },
+          "packages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProjectPackageRepository"
+            }
+          },
+          "projectId": {
+            "type": "string"
+          },
+          "features": {
+            "nullable": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProjectFeatureState"
+            }
+          },
+          "trackers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProjectIssueTrackerItem"
+            }
+          },
+          "collaboratorsProfiles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TD_MemberProfile"
+            }
+          },
+          "collaboratorsTeams": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TD_Team"
+            }
+          },
           "tags": {
             "type": "array",
             "items": {
               "type": "string"
-            }
-          },
-          "boards": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/BoardRecord"
             }
           },
           "memberProfiles": {
@@ -60569,6 +62063,12 @@
             "items": {
               "$ref": "#/components/schemas/TD_Team"
             }
+          },
+          "boards": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BoardRecord"
+            }
           }
         },
         "required": [
@@ -60577,24 +62077,24 @@
           "name",
           "private",
           "archived",
-          "packages",
-          "guestProfiles",
-          "collaboratorsProfiles",
-          "collaboratorsTeams",
           "type",
-          "projectId",
           "enable",
           "hoursInDay",
           "daysInWeek",
           "format",
-          "trackers",
+          "guestProfiles",
           "repos",
+          "packages",
+          "projectId",
+          "trackers",
+          "collaboratorsProfiles",
+          "collaboratorsTeams",
           "tags",
-          "boards",
           "memberProfiles",
           "memberTeams",
           "adminProfiles",
-          "adminTeams"
+          "adminTeams",
+          "boards"
         ]
       },
       "PR_RepositoryInfo": {
@@ -60927,6 +62427,9 @@
         },
         "anyOf": [
           {
+            "$ref": "#/components/schemas/CratesPackageType"
+          },
+          {
             "$ref": "#/components/schemas/FileType"
           },
           {
@@ -60936,19 +62439,19 @@
             "$ref": "#/components/schemas/DartPackageType"
           },
           {
-            "$ref": "#/components/schemas/ComposerPackageType"
-          },
-          {
-            "$ref": "#/components/schemas/NuGetPackageType"
-          },
-          {
             "$ref": "#/components/schemas/MavenPackageType"
           },
           {
             "$ref": "#/components/schemas/NpmPackageType"
           },
           {
+            "$ref": "#/components/schemas/ComposerPackageType"
+          },
+          {
             "$ref": "#/components/schemas/PythonPackageType"
+          },
+          {
+            "$ref": "#/components/schemas/NuGetPackageType"
           }
         ],
         "discriminator": {
@@ -61031,22 +62534,25 @@
             "$ref": "#/components/schemas/NpmPackageVersionDetails"
           },
           {
-            "$ref": "#/components/schemas/ComposerPackageVersionDetails"
-          },
-          {
-            "$ref": "#/components/schemas/DartPackageVersionDetails"
-          },
-          {
             "$ref": "#/components/schemas/ContainerPackageVersionDetails"
+          },
+          {
+            "$ref": "#/components/schemas/CratesPackageVersionDetails"
           },
           {
             "$ref": "#/components/schemas/NuGetPackageVersionDetails"
           },
           {
+            "$ref": "#/components/schemas/PythonPackageVersionDetails"
+          },
+          {
             "$ref": "#/components/schemas/MavenPackageVersionDetails"
           },
           {
-            "$ref": "#/components/schemas/PythonPackageVersionDetails"
+            "$ref": "#/components/schemas/ComposerPackageVersionDetails"
+          },
+          {
+            "$ref": "#/components/schemas/DartPackageVersionDetails"
           }
         ],
         "discriminator": {
@@ -61332,7 +62838,7 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/DocumentPermissionContext"
+            "$ref": "#/components/schemas/PrivateProjectPermissionContext"
           },
           {
             "$ref": "#/components/schemas/DocumentFolderPermissionContext"
@@ -61341,19 +62847,19 @@
             "$ref": "#/components/schemas/ChannelPermissionContext"
           },
           {
-            "$ref": "#/components/schemas/PrivateChannelPermissionContext"
-          },
-          {
             "$ref": "#/components/schemas/ProfilePermissionContext"
           },
           {
-            "$ref": "#/components/schemas/ProjectPermissionContext"
+            "$ref": "#/components/schemas/PrivateChannelPermissionContext"
+          },
+          {
+            "$ref": "#/components/schemas/DocumentPermissionContext"
           },
           {
             "$ref": "#/components/schemas/TeamPermissionContext"
           },
           {
-            "$ref": "#/components/schemas/PrivateProjectPermissionContext"
+            "$ref": "#/components/schemas/ProjectPermissionContext"
           },
           {
             "$ref": "#/components/schemas/GlobalPermissionContext"
@@ -61374,19 +62880,19 @@
         },
         "anyOf": [
           {
+            "$ref": "#/components/schemas/ChannelPermissionTarget"
+          },
+          {
             "$ref": "#/components/schemas/TeamPermissionTarget"
           },
           {
             "$ref": "#/components/schemas/ProfilePermissionTarget"
           },
           {
-            "$ref": "#/components/schemas/GlobalPermissionTarget"
-          },
-          {
-            "$ref": "#/components/schemas/ChannelPermissionTarget"
-          },
-          {
             "$ref": "#/components/schemas/ProjectPermissionTarget"
+          },
+          {
+            "$ref": "#/components/schemas/GlobalPermissionTarget"
           }
         ],
         "discriminator": {
@@ -61606,16 +63112,16 @@
           "archived": {
             "type": "boolean"
           },
-          "children": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PlanItem"
-            }
-          },
           "topics": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Topic"
+            }
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PlanItem"
             }
           }
         },
@@ -61624,8 +63130,8 @@
           "checklistId",
           "hasChildren",
           "archived",
-          "children",
-          "topics"
+          "topics",
+          "children"
         ]
       },
       "PlanItemChildren": {
@@ -61868,6 +63374,10 @@
           "postpone": {
             "type": "string",
             "format": "date-time"
+          },
+          "markdown": {
+            "nullable": true,
+            "type": "boolean"
           },
           "archived": {
             "type": "boolean"
@@ -62622,6 +64132,10 @@
             "items": {
               "type": "string"
             }
+          },
+          "trialBasePlan": {
+            "nullable": true,
+            "type": "string"
           }
         },
         "required": [
@@ -64162,12 +65676,16 @@
             "items": {
               "$ref": "#/components/schemas/DocumentMark"
             }
+          },
+          "textAlign": {
+            "$ref": "#/components/schemas/PmNodeTextAlign"
           }
         },
         "required": [
           "level",
           "children",
-          "marks"
+          "marks",
+          "textAlign"
         ]
       },
       "RtHorizontalRule": {
@@ -64245,10 +65763,10 @@
             "$ref": "#/components/schemas/RtTeamLinkDetails"
           },
           {
-            "$ref": "#/components/schemas/RtProfileLinkDetails"
+            "$ref": "#/components/schemas/RtPredefinedMentionLinkDetails"
           },
           {
-            "$ref": "#/components/schemas/RtPredefinedMentionLinkDetails"
+            "$ref": "#/components/schemas/RtProfileLinkDetails"
           }
         ],
         "discriminator": {
@@ -64288,6 +65806,48 @@
         "required": [
           "children",
           "marks"
+        ]
+      },
+      "RtMention": {
+        "type": "object",
+        "properties": {
+          "attrs": {
+            "$ref": "#/components/schemas/RtMentionAttrs"
+          },
+          "marks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DocumentMark"
+            }
+          }
+        },
+        "required": [
+          "attrs",
+          "marks"
+        ]
+      },
+      "RtMentionAttrs": {
+        "properties": {
+          "className": {
+            "type": "string"
+          }
+        },
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/RtTeamMentionAttrs"
+          },
+          {
+            "$ref": "#/components/schemas/RtProfileMentionAttrs"
+          },
+          {
+            "$ref": "#/components/schemas/RtPredefinedMentionAttrs"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "className"
+        },
+        "required": [
+          "className"
         ]
       },
       "RtOrderedList": {
@@ -64330,11 +65890,26 @@
             "items": {
               "$ref": "#/components/schemas/DocumentMark"
             }
+          },
+          "textAlign": {
+            "$ref": "#/components/schemas/PmNodeTextAlign"
           }
         },
         "required": [
           "children",
-          "marks"
+          "marks",
+          "textAlign"
+        ]
+      },
+      "RtPredefinedMentionAttrs": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type"
         ]
       },
       "RtPredefinedMentionLinkDetails": {
@@ -64361,6 +65936,25 @@
         "required": [
           "id",
           "userName"
+        ]
+      },
+      "RtProfileMentionAttrs": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "userName": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "userName",
+          "href"
         ]
       },
       "RtStrikeThroughMark": {
@@ -64516,6 +66110,25 @@
           "id"
         ]
       },
+      "RtTeamMentionAttrs": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "teamName": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "teamName",
+          "href"
+        ]
+      },
       "RtText": {
         "type": "object",
         "properties": {
@@ -64532,6 +66145,39 @@
         "required": [
           "value",
           "marks"
+        ]
+      },
+      "RtUnfurl": {
+        "type": "object",
+        "properties": {
+          "attrs": {
+            "$ref": "#/components/schemas/RtUnfurlAttrs"
+          },
+          "marks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DocumentMark"
+            }
+          }
+        },
+        "required": [
+          "attrs",
+          "marks"
+        ]
+      },
+      "RtUnfurlAttrs": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "href",
+          "title"
         ]
       },
       "SFUDataProducerOptions": {
@@ -65017,6 +66663,129 @@
           "comment"
         ]
       },
+      "Sticker": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "symbol": {
+            "nullable": true,
+            "type": "string"
+          },
+          "attachmentId": {
+            "nullable": true,
+            "type": "string"
+          },
+          "width": {
+            "nullable": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          "height": {
+            "nullable": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          "variants": {
+            "nullable": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StickerVariant"
+            }
+          },
+          "animated": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "archived": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "archived"
+        ]
+      },
+      "StickerContentDetails": {
+        "type": "object",
+        "properties": {
+          "sticker": {
+            "$ref": "#/components/schemas/Sticker"
+          },
+          "pack": {
+            "nullable": true,
+            "$ref": "#/components/schemas/StickerPackInfo"
+          }
+        },
+        "required": [
+          "sticker"
+        ]
+      },
+      "StickerPackInfo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "favoriteByDefault": {
+            "type": "boolean"
+          },
+          "archived": {
+            "type": "boolean"
+          },
+          "private": {
+            "type": "boolean"
+          },
+          "addedAt": {
+            "nullable": true,
+            "type": "string",
+            "format": "date-time"
+          },
+          "stickers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Sticker"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "favoriteByDefault",
+          "archived",
+          "private",
+          "stickers"
+        ]
+      },
+      "StickerVariant": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "nullable": true,
+            "type": "string"
+          },
+          "width": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "height": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "required": [
+          "id",
+          "width",
+          "height"
+        ]
+      },
       "StringCFConstraint": {
         "type": "object",
         "properties": {
@@ -65168,13 +66937,10 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/RepoHeadsSubscriptionFilter"
+            "$ref": "#/components/schemas/AutomationJobSubscriptionFilter"
           },
           {
-            "$ref": "#/components/schemas/RepoCommitsSubscriptionFilter"
-          },
-          {
-            "$ref": "#/components/schemas/ProjectCommonSubscriptionFilter"
+            "$ref": "#/components/schemas/AbsenceCommonSubscriptionFilter"
           },
           {
             "$ref": "#/components/schemas/DeploymentsSubscriptionFilter"
@@ -65183,28 +66949,31 @@
             "$ref": "#/components/schemas/ApplicationsSubscriptionFilter"
           },
           {
-            "$ref": "#/components/schemas/MemberCommonSubscriptionFilter"
+            "$ref": "#/components/schemas/DocumentCustomSubscriptionFilter"
+          },
+          {
+            "$ref": "#/components/schemas/RepoCommitsSubscriptionFilter"
           },
           {
             "$ref": "#/components/schemas/CodeReviewSubscriptionFilter"
           },
           {
-            "$ref": "#/components/schemas/AutomationJobSubscriptionFilter"
+            "$ref": "#/components/schemas/PackagesSubscriptionFilter"
+          },
+          {
+            "$ref": "#/components/schemas/MemberCommonSubscriptionFilter"
+          },
+          {
+            "$ref": "#/components/schemas/ProjectCommonSubscriptionFilter"
+          },
+          {
+            "$ref": "#/components/schemas/RepoHeadsSubscriptionFilter"
           },
           {
             "$ref": "#/components/schemas/ChatChannelSubscriptionFilter"
           },
           {
             "$ref": "#/components/schemas/BlogCommonSubscriptionFilter"
-          },
-          {
-            "$ref": "#/components/schemas/DocumentCustomSubscriptionFilter"
-          },
-          {
-            "$ref": "#/components/schemas/AbsenceCommonSubscriptionFilter"
-          },
-          {
-            "$ref": "#/components/schemas/PackagesSubscriptionFilter"
           }
         ],
         "discriminator": {
@@ -65222,19 +66991,31 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/MemberCommonSubscriptionFilterIn"
-          },
-          {
-            "$ref": "#/components/schemas/DocumentCustomSubscriptionFilterIn"
+            "$ref": "#/components/schemas/BlogCommonSubscriptionFilterIn"
           },
           {
             "$ref": "#/components/schemas/AbsenceCommonSubscriptionFilterIn"
           },
           {
+            "$ref": "#/components/schemas/PackagesSubscriptionFilterIn"
+          },
+          {
+            "$ref": "#/components/schemas/AutomationJobSubscriptionFilterIn"
+          },
+          {
+            "$ref": "#/components/schemas/MemberCommonSubscriptionFilterIn"
+          },
+          {
             "$ref": "#/components/schemas/RepoCommitsSubscriptionFilterIn"
           },
           {
+            "$ref": "#/components/schemas/ProjectCommonSubscriptionFilterIn"
+          },
+          {
             "$ref": "#/components/schemas/RepoHeadsSubscriptionFilterIn"
+          },
+          {
+            "$ref": "#/components/schemas/ChatChannelSubscriptionFilterIn"
           },
           {
             "$ref": "#/components/schemas/ApplicationsSubscriptionFilterIn"
@@ -65243,22 +67024,10 @@
             "$ref": "#/components/schemas/DeploymentsSubscriptionFilterIn"
           },
           {
-            "$ref": "#/components/schemas/ChatChannelSubscriptionFilterIn"
-          },
-          {
-            "$ref": "#/components/schemas/ProjectCommonSubscriptionFilterIn"
-          },
-          {
-            "$ref": "#/components/schemas/BlogCommonSubscriptionFilterIn"
-          },
-          {
-            "$ref": "#/components/schemas/AutomationJobSubscriptionFilterIn"
-          },
-          {
             "$ref": "#/components/schemas/CodeReviewSubscriptionFilterIn"
           },
           {
-            "$ref": "#/components/schemas/PackagesSubscriptionFilterIn"
+            "$ref": "#/components/schemas/DocumentCustomSubscriptionFilterIn"
           }
         ],
         "discriminator": {
@@ -65813,6 +67582,68 @@
             "nullable": true,
             "type": "boolean"
           },
+          "membershipHistory": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TD_Membership"
+            }
+          },
+          "status": {
+            "$ref": "#/components/schemas/TwoFactorAuthenticationStatus"
+          },
+          "left": {
+            "nullable": true,
+            "type": "string",
+            "format": "full-date"
+          },
+          "logins": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ES_ProfileLogin"
+            }
+          },
+          "locations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TD_MemberLocation"
+            }
+          },
+          "externalId": {
+            "nullable": true,
+            "type": "string"
+          },
+          "folderWithChildren": {
+            "$ref": "#/components/schemas/DocumentFolderWithChildren"
+          },
+          "managers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TD_MemberProfile"
+            }
+          },
+          "about": {
+            "nullable": true,
+            "type": "string"
+          },
+          "avatarCropSquare": {
+            "nullable": true,
+            "$ref": "#/components/schemas/AvatarCropSquare"
+          },
+          "gender": {
+            "nullable": true,
+            "$ref": "#/components/schemas/Gender"
+          },
+          "birthday": {
+            "nullable": true,
+            "type": "string",
+            "format": "full-date"
+          },
+          "absences": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AbsenceRecord"
+            }
+          },
           "emails": {
             "type": "array",
             "items": {
@@ -65835,29 +67666,6 @@
             "type": "array",
             "items": {
               "type": "string"
-            }
-          },
-          "about": {
-            "nullable": true,
-            "type": "string"
-          },
-          "avatarCropSquare": {
-            "nullable": true,
-            "$ref": "#/components/schemas/AvatarCropSquare"
-          },
-          "gender": {
-            "nullable": true,
-            "$ref": "#/components/schemas/Gender"
-          },
-          "birthday": {
-            "nullable": true,
-            "type": "string",
-            "format": "full-date"
-          },
-          "managers": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TD_MemberProfile"
             }
           },
           "memberships": {
@@ -65888,61 +67696,16 @@
             "nullable": true,
             "type": "boolean"
           },
-          "status": {
-            "$ref": "#/components/schemas/TwoFactorAuthenticationStatus"
-          },
-          "locations": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TD_MemberLocation"
-            }
-          },
-          "externalId": {
-            "nullable": true,
-            "type": "string"
-          },
-          "left": {
-            "nullable": true,
-            "type": "string",
-            "format": "full-date"
-          },
-          "absences": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AbsenceRecord"
-            }
-          },
-          "holidays": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PublicHoliday"
-            }
-          },
-          "folderWithChildren": {
-            "$ref": "#/components/schemas/DocumentFolderWithChildren"
-          },
-          "membershipHistory": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TD_Membership"
-            }
-          },
-          "locationHistory": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TD_MemberLocation"
-            }
-          },
           "topics": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Topic"
             }
           },
-          "logins": {
+          "locationHistory": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ES_ProfileLogin"
+              "$ref": "#/components/schemas/TD_MemberLocation"
             }
           },
           "customFields": {
@@ -65960,22 +67723,21 @@
           "languages",
           "archived",
           "notAMember",
+          "membershipHistory",
+          "status",
+          "logins",
+          "locations",
+          "folderWithChildren",
+          "managers",
+          "absences",
           "emails",
           "phones",
           "messengers",
           "links",
-          "managers",
           "memberships",
           "onboardingRequired",
-          "status",
-          "locations",
-          "absences",
-          "holidays",
-          "folderWithChildren",
-          "membershipHistory",
-          "locationHistory",
           "topics",
-          "logins",
+          "locationHistory",
           "customFields"
         ]
       },
@@ -66727,10 +68489,10 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/TextDocumentBodyConvertTypeIn"
+            "$ref": "#/components/schemas/TextDocumentBodyUpdateIn"
           },
           {
-            "$ref": "#/components/schemas/TextDocumentBodyUpdateIn"
+            "$ref": "#/components/schemas/TextDocumentBodyConvertTypeIn"
           }
         ],
         "discriminator": {
@@ -66869,6 +68631,26 @@
             "type": "number",
             "format": "double"
           },
+          "activeGuests": {
+            "nullable": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          "paidActiveGuests": {
+            "nullable": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          "freeActiveGuests": {
+            "nullable": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          "guestCost": {
+            "nullable": true,
+            "type": "number",
+            "format": "double"
+          },
           "storageAllocationB": {
             "nullable": true,
             "type": "integer",
@@ -66978,10 +68760,10 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/TodoItemContentText"
+            "$ref": "#/components/schemas/TodoContent"
           },
           {
-            "$ref": "#/components/schemas/TodoContent"
+            "$ref": "#/components/schemas/TodoItemContentText"
           },
           {
             "$ref": "#/components/schemas/TodoItemContentMdText"
@@ -67071,6 +68853,52 @@
         "required": [
           "userId",
           "todoItemId"
+        ]
+      },
+      "TopLevelPageUiExtensionApi": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": "string"
+          },
+          "description": {
+            "nullable": true,
+            "type": "string"
+          },
+          "uniqueCode": {
+            "type": "string"
+          },
+          "iframeUrl": {
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "displayName",
+          "uniqueCode"
+        ]
+      },
+      "TopLevelPageUiExtensionIn": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": "string"
+          },
+          "description": {
+            "nullable": true,
+            "type": "string"
+          },
+          "uniqueCode": {
+            "type": "string"
+          },
+          "iframeUrl": {
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "displayName",
+          "uniqueCode"
         ]
       },
       "Topic": {
@@ -67515,9 +69343,792 @@
           "id"
         ]
       },
-      "UnfurlDetails": {
+      "UnfurlDeployTargetDetails": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "targetRef": {
+            "$ref": "#/components/schemas/DeployTargetRecord"
+          },
+          "targetName": {
+            "nullable": true,
+            "type": "string"
+          },
+          "showLinkIcon": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "skipDetailsRender": {
+            "nullable": true,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "targetRef"
+        ]
+      },
+      "UnfurlDeploymentDetails": {
+        "type": "object",
+        "properties": {
+          "deploymentRef": {
+            "$ref": "#/components/schemas/DeploymentRecord"
+          },
+          "showLinkIcon": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "showDetails": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "showStatus": {
+            "nullable": true,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "deploymentRef"
+        ]
+      },
+      "UnfurlDetails": {
+        "properties": {
+          "className": {
+            "type": "string"
+          }
+        },
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsCodeSnippet"
+          },
+          {
+            "$ref": "#/components/schemas/AutomationJobExecutionUnfurlDetails"
+          },
+          {
+            "$ref": "#/components/schemas/ChannelItemSnapshot"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsMeeting"
+          },
+          {
+            "$ref": "#/components/schemas/CallSessionUnfurlDetails"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsMC"
+          },
+          {
+            "$ref": "#/components/schemas/AutomationJobUnfurlDetails"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsArticle"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDeployTargetDetails"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsImage"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsMeeting"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsApplication"
+          },
+          {
+            "$ref": "#/components/schemas/AutomationJobUnfurlDetails"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsLocation"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsCommit"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsDateTimeRange"
+          },
+          {
+            "$ref": "#/components/schemas/DocumentHistoryUnfurlDetails"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsChecklist"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsIssueTag"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsChatLink"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsShortCommit"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsDraft"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsPackageDetails"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsIssueImportTransaction"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsIssue"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsTextDiff"
+          },
+          {
+            "$ref": "#/components/schemas/AutomationJobExecutionUnfurlDetails"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsRole"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsFolder"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsChat"
+          },
+          {
+            "$ref": "#/components/schemas/CallSessionUnfurlDetails"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsDateTime"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsProfile"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsProject"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsSnapshotDiff"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsSprint"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsTeam"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsCodeReview"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsIssueId"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsIssueStatus"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsArticle"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDeployTargetDetails"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsRepositoryBranch"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDeploymentDetails"
+          },
+          {
+            "$ref": "#/components/schemas/UnfurlDetailsIssueTopic"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "className"
+        },
+        "required": [
+          "className"
+        ]
+      },
+      "UnfurlDetailsApplication": {
+        "type": "object",
+        "properties": {
+          "app": {
+            "$ref": "#/components/schemas/ES_App"
+          }
+        },
+        "required": [
+          "app"
+        ]
+      },
+      "UnfurlDetailsArticle": {
+        "type": "object",
+        "properties": {
+          "article": {
+            "$ref": "#/components/schemas/ArticleRecord"
+          },
+          "content": {
+            "nullable": true,
+            "$ref": "#/components/schemas/ArticleContentRecord"
+          },
+          "channel": {
+            "nullable": true,
+            "$ref": "#/components/schemas/ArticleChannelRecord"
+          },
+          "details": {
+            "nullable": true,
+            "$ref": "#/components/schemas/ArticleDetailsRecord"
+          }
+        },
+        "required": [
+          "article"
+        ]
+      },
+      "UnfurlDetailsChat": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "channel",
+          "title"
+        ]
+      },
+      "UnfurlDetailsChatLink": {
+        "type": "object",
+        "properties": {
+          "contactKey": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "contactKey",
+          "title"
+        ]
+      },
+      "UnfurlDetailsChecklist": {
+        "type": "object",
+        "properties": {
+          "checklist": {
+            "$ref": "#/components/schemas/Checklist"
+          }
+        },
+        "required": [
+          "checklist"
+        ]
+      },
+      "UnfurlDetailsCodeReview": {
+        "type": "object",
+        "properties": {
+          "review": {
+            "$ref": "#/components/schemas/CodeReviewRecord"
+          },
+          "withIcon": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "withBranchPair": {
+            "type": "boolean"
+          },
+          "defaultBranchInRepo": {
+            "nullable": true,
+            "type": "string"
+          },
+          "hideIfCannotResolve": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "reviewState": {
+            "nullable": true,
+            "$ref": "#/components/schemas/CodeReviewState"
+          },
+          "isMerged": {
+            "nullable": true,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "review",
+          "withBranchPair"
+        ]
+      },
+      "UnfurlDetailsCodeSnippet": {
+        "type": "object",
+        "properties": {
+          "anchor": {
+            "$ref": "#/components/schemas/CodeSnippetAnchor"
+          },
+          "lines": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CodeLine"
+            }
+          }
+        },
+        "required": [
+          "anchor",
+          "lines"
+        ]
+      },
+      "UnfurlDetailsCommit": {
+        "type": "object",
+        "properties": {
+          "project": {
+            "$ref": "#/components/schemas/PR_Project"
+          },
+          "repository": {
+            "type": "string"
+          },
+          "repositoryId": {
+            "nullable": true,
+            "type": "string"
+          },
+          "commitId": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "messageUnfurls": {
+            "nullable": true,
+            "$ref": "#/components/schemas/CommitMessageUnfurlsRecord"
+          },
+          "commitDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "authorDate": {
+            "nullable": true,
+            "type": "string",
+            "format": "date-time"
+          },
+          "author": {
+            "$ref": "#/components/schemas/GitAuthorInfo"
+          },
+          "authorProfile": {
+            "nullable": true,
+            "$ref": "#/components/schemas/TD_MemberProfile"
+          },
+          "hideAuthorAndDate": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "withBranchTags": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "reviewId": {
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "project",
+          "repository",
+          "commitId",
+          "message",
+          "commitDate",
+          "author"
+        ]
+      },
+      "UnfurlDetailsDateTime": {
+        "type": "object",
+        "properties": {
+          "utcMilliseconds": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "params": {
+            "nullable": true,
+            "$ref": "#/components/schemas/DateTimeViewParams"
+          }
+        },
+        "required": [
+          "utcMilliseconds"
+        ]
+      },
+      "UnfurlDetailsDateTimeRange": {
+        "type": "object",
+        "properties": {
+          "since": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "till": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "params": {
+            "nullable": true,
+            "$ref": "#/components/schemas/DateTimeViewParams"
+          }
+        },
+        "required": [
+          "since",
+          "till"
+        ]
+      },
+      "UnfurlDetailsDraft": {
+        "type": "object",
+        "properties": {
+          "draft": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "document": {
+            "nullable": true,
+            "$ref": "#/components/schemas/Document"
+          },
+          "strikeThrough": {
+            "nullable": true,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "draft",
+          "title"
+        ]
+      },
+      "UnfurlDetailsFolder": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "root": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "root"
+        ]
+      },
+      "UnfurlDetailsImage": {
+        "type": "object",
+        "properties": {
+          "icon": {
+            "nullable": true,
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "image": {
+            "$ref": "#/components/schemas/ImageAttachment"
+          }
+        },
+        "required": [
+          "title",
+          "image"
+        ]
+      },
+      "UnfurlDetailsIssue": {
+        "type": "object",
+        "properties": {
+          "issue": {
+            "$ref": "#/components/schemas/Issue"
+          },
+          "strikeThrough": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "compact": {
+            "nullable": true,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "issue"
+        ]
+      },
+      "UnfurlDetailsIssueId": {
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "type": "string"
+          },
+          "issueId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "projectId",
+          "issueId"
+        ]
+      },
+      "UnfurlDetailsIssueImportTransaction": {
+        "type": "object",
+        "properties": {
+          "importTransaction": {
+            "$ref": "#/components/schemas/ImportTransactionRecord"
+          }
+        },
+        "required": [
+          "importTransaction"
+        ]
+      },
+      "UnfurlDetailsIssueStatus": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/IssueStatus"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "UnfurlDetailsIssueTag": {
+        "type": "object",
+        "properties": {
+          "tag": {
+            "$ref": "#/components/schemas/PlanningTag"
+          },
+          "strikeThrough": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "tag",
+          "strikeThrough"
+        ]
+      },
+      "UnfurlDetailsIssueTopic": {
+        "type": "object",
+        "properties": {
+          "topic": {
+            "$ref": "#/components/schemas/Topic"
+          },
+          "strikeThrough": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "topic",
+          "strikeThrough"
+        ]
+      },
+      "UnfurlDetailsLocation": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "$ref": "#/components/schemas/TD_Location"
+          },
+          "strikeThrough": {
+            "nullable": true,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "location"
+        ]
+      },
+      "UnfurlDetailsMC": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "$ref": "#/components/schemas/MCMessage"
+          },
+          "inlineUnfurls": {
+            "nullable": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AttachmentInfo"
+            }
+          }
+        },
+        "required": [
+          "message"
+        ]
+      },
+      "UnfurlDetailsMeeting": {
+        "type": "object",
+        "properties": {
+          "meeting": {
+            "$ref": "#/components/schemas/DTO_Meeting"
+          },
+          "compact": {
+            "nullable": true,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "meeting"
+        ]
+      },
+      "UnfurlDetailsPackageDetails": {
+        "type": "object",
+        "properties": {
+          "repoRef": {
+            "$ref": "#/components/schemas/ProjectPackageRepository"
+          },
+          "packageName": {
+            "nullable": true,
+            "type": "string"
+          },
+          "version": {
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "repoRef"
+        ]
+      },
+      "UnfurlDetailsProfile": {
+        "type": "object",
+        "properties": {
+          "profile": {
+            "$ref": "#/components/schemas/TD_MemberProfile"
+          },
+          "strikeThrough": {
+            "nullable": true,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "profile"
+        ]
+      },
+      "UnfurlDetailsProject": {
+        "type": "object",
+        "properties": {
+          "project": {
+            "$ref": "#/components/schemas/PR_Project"
+          },
+          "strikeThrough": {
+            "nullable": true,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "project"
+        ]
+      },
+      "UnfurlDetailsRepositoryBranch": {
+        "type": "object",
+        "properties": {
+          "project": {
+            "$ref": "#/components/schemas/PR_Project"
+          },
+          "repository": {
+            "type": "string"
+          },
+          "branchHead": {
+            "type": "string"
+          },
+          "deleted": {
+            "type": "boolean"
+          },
+          "isDefault": {
+            "nullable": true,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "project",
+          "repository",
+          "branchHead",
+          "deleted"
+        ]
+      },
+      "UnfurlDetailsRole": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "$ref": "#/components/schemas/TD_Role"
+          }
+        },
+        "required": [
+          "role"
+        ]
+      },
+      "UnfurlDetailsShortCommit": {
+        "type": "object",
+        "properties": {
+          "project": {
+            "$ref": "#/components/schemas/PR_Project"
+          },
+          "repository": {
+            "type": "string"
+          },
+          "commitId": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "strikeThrough": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "project",
+          "repository",
+          "commitId",
+          "message",
+          "strikeThrough"
+        ]
+      },
+      "UnfurlDetailsSnapshotDiff": {
+        "type": "object",
+        "properties": {
+          "snapshotId": {
+            "type": "string"
+          },
+          "baseSnapshotId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "snapshotId",
+          "baseSnapshotId"
+        ]
+      },
+      "UnfurlDetailsSprint": {
+        "type": "object",
+        "properties": {
+          "project": {
+            "$ref": "#/components/schemas/PR_Project"
+          },
+          "sprint": {
+            "$ref": "#/components/schemas/SprintRecord"
+          }
+        },
+        "required": [
+          "project",
+          "sprint"
+        ]
+      },
+      "UnfurlDetailsTeam": {
+        "type": "object",
+        "properties": {
+          "team": {
+            "$ref": "#/components/schemas/TD_Team"
+          },
+          "strikeThrough": {
+            "nullable": true,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "team"
+        ]
+      },
+      "UnfurlDetailsTextDiff": {
+        "type": "object",
+        "properties": {
+          "textBefore": {
+            "type": "string"
+          },
+          "textAfter": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "textBefore",
+          "textAfter"
+        ]
       },
       "UnfurlsBlockListEntry": {
         "type": "object",
@@ -67954,100 +70565,124 @@
         },
         "anyOf": [
           {
-            "$ref": "#/components/schemas/DocumentMetaWebhookEvent"
-          },
-          {
-            "$ref": "#/components/schemas/MeetingWebhookEvent"
-          },
-          {
-            "$ref": "#/components/schemas/DocumentEditorsChangedEvent"
-          },
-          {
-            "$ref": "#/components/schemas/EmailBouncedEvent"
-          },
-          {
-            "$ref": "#/components/schemas/DeploymentWebhookEvent"
-          },
-          {
-            "$ref": "#/components/schemas/SPackageRepositoryWebhookEvent"
-          },
-          {
-            "$ref": "#/components/schemas/AbsenceApprovalWebhookEvent"
-          },
-          {
-            "$ref": "#/components/schemas/ApplicationUnfurlQueueItemsCreatedEvent"
-          },
-          {
-            "$ref": "#/components/schemas/BlogWebhookEvent"
-          },
-          {
-            "$ref": "#/components/schemas/TeamMembershipEvent"
-          },
-          {
-            "$ref": "#/components/schemas/ApplicationSshKeyWebhookEvent"
-          },
-          {
-            "$ref": "#/components/schemas/PingWebhookEvent"
-          },
-          {
-            "$ref": "#/components/schemas/ChannelEvent"
-          },
-          {
-            "$ref": "#/components/schemas/ChatMessageCreatedEvent"
-          },
-          {
-            "$ref": "#/components/schemas/SRepoHeadsWebhookEvent"
-          },
-          {
-            "$ref": "#/components/schemas/ApplicationWebhookEvent"
-          },
-          {
-            "$ref": "#/components/schemas/ChatMessageUpdatedEvent"
-          },
-          {
-            "$ref": "#/components/schemas/ChatMessageDeletedEvent"
-          },
-          {
-            "$ref": "#/components/schemas/IssueWebhookEvent"
-          },
-          {
-            "$ref": "#/components/schemas/AbsenceWebhookEvent"
-          },
-          {
-            "$ref": "#/components/schemas/TeamEvent"
-          },
-          {
-            "$ref": "#/components/schemas/LocationEvent"
-          },
-          {
-            "$ref": "#/components/schemas/AutomationJobEvent"
-          },
-          {
-            "$ref": "#/components/schemas/CodeReviewWebhookEvent"
+            "$ref": "#/components/schemas/ChatMessageReactionRemovedEvent"
           },
           {
             "$ref": "#/components/schemas/ProjectEvent"
           },
           {
-            "$ref": "#/components/schemas/ApplicationUnfurlTargetWebhookEvent"
+            "$ref": "#/components/schemas/SRepoCommitsWebhookEvent"
           },
           {
-            "$ref": "#/components/schemas/ProfileOrganizationEvent"
+            "$ref": "#/components/schemas/LocationEvent"
           },
           {
-            "$ref": "#/components/schemas/ApplicationAuthorizationRequestedEvent"
+            "$ref": "#/components/schemas/IssueWebhookEvent"
           },
           {
-            "$ref": "#/components/schemas/FeatureFlagWebhookEvent"
+            "$ref": "#/components/schemas/ChannelEvent"
+          },
+          {
+            "$ref": "#/components/schemas/DocumentEditorsChangedEvent"
+          },
+          {
+            "$ref": "#/components/schemas/AbsenceWebhookEvent"
+          },
+          {
+            "$ref": "#/components/schemas/ChatMessageDeletedEvent"
+          },
+          {
+            "$ref": "#/components/schemas/GoogleIntegrationDisconnectedEvent"
+          },
+          {
+            "$ref": "#/components/schemas/SPackageRepositoryWebhookEvent"
+          },
+          {
+            "$ref": "#/components/schemas/PingWebhookEvent"
+          },
+          {
+            "$ref": "#/components/schemas/ApplicationWebhookEvent"
+          },
+          {
+            "$ref": "#/components/schemas/CustomEmojiAddedEvent"
           },
           {
             "$ref": "#/components/schemas/DocumentWebhookEvent"
           },
           {
-            "$ref": "#/components/schemas/SRepoCommitsWebhookEvent"
+            "$ref": "#/components/schemas/TeamMembershipEvent"
+          },
+          {
+            "$ref": "#/components/schemas/DeploymentWebhookEvent"
+          },
+          {
+            "$ref": "#/components/schemas/EmailBouncedEvent"
+          },
+          {
+            "$ref": "#/components/schemas/ChatMessageUpdatedEvent"
+          },
+          {
+            "$ref": "#/components/schemas/AbsenceApprovalWebhookEvent"
+          },
+          {
+            "$ref": "#/components/schemas/CustomEmojiUpdatedEvent"
           },
           {
             "$ref": "#/components/schemas/ApplicationAuthorizedWebhookEvent"
+          },
+          {
+            "$ref": "#/components/schemas/BusinessEntityRelationEvent"
+          },
+          {
+            "$ref": "#/components/schemas/ApplicationUnfurlTargetWebhookEvent"
+          },
+          {
+            "$ref": "#/components/schemas/DocumentMetaWebhookEvent"
+          },
+          {
+            "$ref": "#/components/schemas/ApplicationUnfurlQueueItemsCreatedEvent"
+          },
+          {
+            "$ref": "#/components/schemas/MeetingWebhookEvent"
+          },
+          {
+            "$ref": "#/components/schemas/IssueImportTransactionWebhookEvent"
+          },
+          {
+            "$ref": "#/components/schemas/BlogWebhookEvent"
+          },
+          {
+            "$ref": "#/components/schemas/SRepoHeadsWebhookEvent"
+          },
+          {
+            "$ref": "#/components/schemas/ApplicationAuthorizationRequestedEvent"
+          },
+          {
+            "$ref": "#/components/schemas/AutomationJobEvent"
+          },
+          {
+            "$ref": "#/components/schemas/ChatMessageCreatedEvent"
+          },
+          {
+            "$ref": "#/components/schemas/CustomEmojiDeletedEvent"
+          },
+          {
+            "$ref": "#/components/schemas/TeamEvent"
+          },
+          {
+            "$ref": "#/components/schemas/CodeReviewWebhookEvent"
+          },
+          {
+            "$ref": "#/components/schemas/FeatureFlagWebhookEvent"
+          },
+          {
+            "$ref": "#/components/schemas/ApplicationSshKeyWebhookEvent"
+          },
+          {
+            "$ref": "#/components/schemas/ProfileOrganizationEvent"
+          },
+          {
+            "$ref": "#/components/schemas/ChatMessageReactionAddedEvent"
           }
         ],
         "discriminator": {
@@ -68106,6 +70741,10 @@
           },
           "doRetries": {
             "type": "boolean"
+          },
+          "payloadFields": {
+            "nullable": true,
+            "type": "string"
           }
         },
         "required": [
@@ -68218,6 +70857,10 @@
           "owner": {
             "nullable": true,
             "$ref": "#/components/schemas/TD_MemberProfile"
+          },
+          "ownerPrincipal": {
+            "nullable": true,
+            "$ref": "#/components/schemas/CPrincipal"
           },
           "info": {
             "$ref": "#/components/schemas/WorkerInfoDTO"
@@ -69057,6 +71700,20 @@
           "DUE"
         ]
       },
+      "JobExecutionDisplayStatus": {
+        "type": "string",
+        "enum": [
+          "Awaiting",
+          "Running",
+          "Restarting",
+          "Finishing",
+          "Stopped",
+          "Succeeded",
+          "Failed",
+          "NoSuitableWorkers",
+          "WaitingForWorkers"
+        ]
+      },
       "JobExecutionStatus": {
         "type": "string",
         "enum": [
@@ -69315,6 +71972,15 @@
           "ANONYMOUS"
         ]
       },
+      "PmNodeTextAlign": {
+        "type": "string",
+        "enum": [
+          "left",
+          "center",
+          "right",
+          "justify"
+        ]
+      },
       "PrivateFeedColor": {
         "type": "string",
         "enum": [
@@ -69511,6 +72177,17 @@
           "SKIP"
         ]
       },
+      "Tier": {
+        "type": "string",
+        "enum": [
+          "Free",
+          "Team",
+          "Organization",
+          "Classroom",
+          "Beta",
+          "Enterprise"
+        ]
+      },
       "TodoItemContentKind": {
         "type": "string",
         "enum": [
@@ -69529,6 +72206,25 @@
           "NOT_SETUP",
           "INACTIVE",
           "ACTIVE"
+        ]
+      },
+      "UnfurlDateTimeFormat": {
+        "type": "string",
+        "enum": [
+          "RELATIVE_TO_NOW",
+          "FULL",
+          "TIME_ONLY",
+          "DATE_ONLY"
+        ]
+      },
+      "UnfurlDateTimeStyle": {
+        "type": "string",
+        "enum": [
+          "REGULAR",
+          "SECONDARY",
+          "STRIKETHROUGH",
+          "BOLD",
+          "CODE"
         ]
       },
       "VersionStatus": {
