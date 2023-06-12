@@ -22,7 +22,7 @@ Axios client for the [JetBrains Space API](https://www.jetbrains.com/help/space/
 ## Install
 
 ```bash
-$ npm install --save-dev jetbrains-space-api
+$ npm install --save jetbrains-space-api
 ```
 
 ## Usage
